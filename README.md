@@ -19,4 +19,6 @@
 
 1. [Scripts, Modules, Packages, Imports](/modules_packages/demo/intro/)
 
+#### Lab
 
+1. [System Info Reporter](/projects/sysinfo_reporter/sysinfo_reporter.md)
