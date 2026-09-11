@@ -1,0 +1,57 @@
+# Last Updated: 2026/02/03
+name: lab-assessment
+run-name: ${{ github.actor }}_${{ github.repository }}_${{ github.action}}
+on:
+  - push
+  - workflow_dispatch
+
+permissions: write-all
+
+jobs:
+  lab-assessment:
+    name: ${{ github.actor }} ${{ github.repository }} Lab Assessment
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]' # Don't run for github classroom bot
+    steps:
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+        with:
+          enable-cache: true
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          # Semantic version range syntax or exact version of a Python version
+          python-version: '3.14'
+
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Install Project Dependencies 
+        run: uv sync --verbose
+
+      - name: Pytest Autograding
+        id: autograding
+        run: |
+          uv run python pytest_scorer.py test_text_processor.py -t \
+            test_text_processor.py::test_count_words \
+            test_text_processor.py::test_capitalize_words \
+            test_text_processor.py::test_reverse_text \
+            test_text_processor.py::test_find_longest_word \
+            test_text_processor.py::test_filter_short_words \
+            test_text_processor.py::test_save_text_to_file \
+            test_text_processor.py::test_read_text_from_file \
+            test_text_processor.py::test_full_greeting \
+            test_text_processor.py::test_count_sentences \
+            test_text_processor.py::test_get_average_word_length \
+            test_text_processor.py::test_remove_punctuation
+        continue-on-error: true
+
+      # - name: Grade Reporting
+      #   uses: classroom-resources/autograding-grading-reporter@v1
+      #   env:
+      #     AUTOGRADING_RESULTS: ${{ steps.autograding.outputs.results }}
+      #   with:
+      #     # reference: https://github.com/classroom-resources/autograding-grading-reporter/blob/main/src/main.js
+      #     # Don't use any IDs with _ or - in the name; they fail
+      #     runners: autograding

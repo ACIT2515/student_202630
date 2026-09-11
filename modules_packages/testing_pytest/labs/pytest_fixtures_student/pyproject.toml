@@ -1,0 +1,13 @@
+[project]
+name = "pytest-fixtures"
+version = "0.1.0"
+description = "Pytest"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = []
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0.2",
+    "pytest-cov>=7.0.0",
+]
