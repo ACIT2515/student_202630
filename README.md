@@ -17,7 +17,7 @@
 
 #### Lab
 
-1. [System Info Reporter](/projects/sysinfo_reporter/sysinfo_reporter.md)
+1. [System Info Reporter](/labs/wk01/sysinfo_reporter.md)
 
 ## Week 02
 
