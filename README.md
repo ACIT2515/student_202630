@@ -31,9 +31,6 @@
    1. [Python Project Management: Virtual Environments and Managing Dependencies Directed Read Questions](/uv_dependencies_virtual_environments/notes/virtual_environments_dependencies_dr_questions.md)
    1. [Python Project Management:Virtual Environments and Managing Dependencies Directed Reading Answers](/uv_dependencies_virtual_environments/notes/virtual_environments_dependencies_dr_answers.md)
 
-### Notes
-
-1. [Python Review: Collections and Iteration](/python_review/notes/collections_iterations.md)
 
 #### Demo
 
