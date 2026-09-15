@@ -21,12 +21,15 @@
 
 ## Week 02
 
-### Flipped Notes 
+### Flipped Notes
 
+1. [Python Collections and Iterating](/python_review/notes/collections_iterations.md)
 1. [Testing with `pytest`](/testing_pytest/notes/pytest.md)
-    1. [Pytest Directed Reading Questions](/testing_pytest/notes/pytest_dr_questions.md)
+   1. [Pytest Directed Reading Questions](/testing_pytest/notes/pytest_dr_questions.md)
+   1. [Pytest Direct Reading Answers](/testing_pytest/notes/pytest_dr_answers.md)
 1. [Python Project Management: Virtual Environments and Managing Dependencies](/uv_dependencies_virtual_environments/notes/virtual_environments_dependencies.md)
-    1. [Python Project Management: Virtual Environments and Managing Dependencies Directed Read Questions](/uv_dependencies_virtual_environments/notes/virtual_environments_dependencies_dr_questions.md)
+   1. [Python Project Management: Virtual Environments and Managing Dependencies Directed Read Questions](/uv_dependencies_virtual_environments/notes/virtual_environments_dependencies_dr_questions.md)
+   1. [Python Project Management:Virtual Environments and Managing Dependencies Directed Reading Answers](/uv_dependencies_virtual_environments/notes/virtual_environments_dependencies_dr_answers.md)
 
 ### Notes
 
@@ -34,5 +37,14 @@
 
 #### Demo
 
+1. [System Info Reporter: Standard Library](/labs/wk01/sysinfo_reporter_soln/)
+1. [Letter Counter](/python_review/demo/letter_count.py)
 1. [Scripts, Modules, Packages, Imports](/modules_packages/demo/intro/)
 
+### Exercises
+
+1. [Pytest Intro Exercise](/testing_pytest/exercises/intro_pytest.md)
+
+### Lab
+
+1. [System Reporter Lab](/uv_dependencies_virtual_environments/exercises/system_report/system_report_lab.md)

@@ -51,8 +51,7 @@ from calculator import divide
 
 def test_divide():
     assert divide(10, 2) == 5
-
-Install pytest as a **development dependency** (not needed for production):
+```
 
 For course projects, add pytest once with `uv add --dev pytest`, then run it
 through `uv`. The `--dev` flag identifies pytest as a development and testing
@@ -74,12 +73,33 @@ terminal session.
 - `uv run pytest -x`: Stop after the first failure.
 - `uv run pytest --lf`: Re-run only tests that failed last time.
 
+### System-Wide Installation
+
+Pytest can also be installed once for the whole computer, outside any project's
+virtual environment:
+
+```bash
+pip install --user pytest
+```
+
+After a system-wide install, `pytest` runs directly in any folder, without
+`uv run`:
+
+```bash
+pytest
+pytest tests/
+```
+
+Avoid using this pytest version for project work. A system-wide install has one
+shared pytest version for every project on the computer, so upgrading it for one
+course or project can silently change test behaviour in another. Use
+`uv add --dev pytest` for project work, and reserve a system-wide install for
+quick scripts and demonstrations that are not managed by `uv`.
+
 ### Alternatives
 
 If pytest was installed in an activated virtual environment, run `pytest`
-directly. A system-wide `pip install -U pytest` also makes `pytest` available,
-but this is not recommended for project work because its version is shared by
-every project on the computer.
+directly instead of `uv run pytest`.
 
 ### Configuring VSCode to run pytest
 
@@ -248,6 +268,7 @@ uv add --dev pytest-cov
 ### Running Tests with Coverage
 
 #### Basic Coverage Report
+
 (terminal output):
 
 ```bash
@@ -328,5 +349,6 @@ pytest tests/test_math.py --cov=calculator
 
 1. [Get Started - pytest documentation](https://docs.pytest.org/en/stable/getting-started.html)
 1. [Getting Started with Pytest: Python Testing with pytest Book](https://learning.oreilly.com/library/view/python-testing-with/9781680509427/f_0013.xhtml#ch.getting_started)]
-2. [Writing Test Functions: Python Testing with pytest Book]](https://learning.oreilly.com/library/view/python-testing-with/9781680509427/f_0019.xhtml#ch.test_functions)
-3. [Pytest Documentation](https://docs.pytest.org/en/stable/)
+1. [Writing Test Functions: Python Testing with pytest
+   Book]](https://learning.oreilly.com/library/view/python-testing-with/9781680509427/f_0019.xhtml#ch.test_functions)
+1. [Pytest Documentation](https://docs.pytest.org/en/stable/)
