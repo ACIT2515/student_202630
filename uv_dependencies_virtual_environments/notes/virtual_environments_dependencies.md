@@ -18,9 +18,10 @@ overwritten or upgraded.
 ### Conflicting Version Requirements Across Projects
 
 Without environment isolation, every Python script on a computer shares a single
-global `site-packages` directory (or maybe one for each user). If Project A requires
-`pydantic>=2.0` and Project B relies on legacy syntax from `pydantic==1.10`,
-installing or upgrading the library for one project inevitably breaks the other.
+global `site-packages` directory (or maybe one for each user). If Project A
+requires `pydantic>=2.0` and Project B relies on legacy syntax from
+`pydantic==1.10`, installing or upgrading the library for one project inevitably
+breaks the other.
 
 ### Environment Drift and Reproducibility
 
@@ -161,8 +162,8 @@ As an integrated project manager, `uv` automates these responsibilities:
 Install `uv` once per computer (not per project):
 
 1. Windows (PowerShell):
-   `powershell -c "irm https://astral.sh/uv/install.ps1 | iex"` or
-   `winget install --astral-sh.uv -e`
+   - `winget install -e --id astral-sh.uv` (preferred)
+   - `powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"`
 1. Linux/macOS: `curl -LsSf https://astral.sh/uv/install.sh | sh` or your OS
    package manager.
 1. Verify the installation: `uv --version`
