@@ -45,3 +45,12 @@
 ### Lab
 
 1. [System Reporter Lab](/uv_dependencies_virtual_environments/exercises/system_report/system_report_lab.md)
+
+## Week 03
+
+### Flippped Notes
+
+1. [Recursion](./recursion/notes/recursion_call_stacks.md)
+   1. [Recursion Directed Reading Questions](./recursion/notes/recursion_call_stacks_dr_questions.md)
+1. [File IO and Paths](./file_io/notes/file_io.md)
+   1. [File IO and Path Directed Reading Questions](./file_io/notes/file_io_dr_questions.md)

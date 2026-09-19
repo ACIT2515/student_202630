@@ -1,0 +1,42 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    
+    {
+      "name": "Python: Recursion Demo",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/01_recursion_demo.py",
+      "console": "integratedTerminal",
+      "args": ["-c","${input:count}", "${input:type}"]
+    },
+     {
+      "name": "Python Debugger: Nested List Sum",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${file}",
+      "console": "integratedTerminal"
+    },
+ ],
+  "inputs": [
+    {
+      "id": "count",
+      "type": "promptString",
+      "description": "Enter number to countdown from",
+      "default": "5"
+    },
+    {
+        "id": "type",
+        "type": "pickString",
+        "description": "Select recursion type: -r recursive, -i iterative",
+        "options": [
+            "-r",
+            "-i"
+        ],
+        "default": "-r"
+    }
+  ]
+}
