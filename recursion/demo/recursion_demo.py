@@ -69,6 +69,7 @@ def countdown_recursive(count):
         return
     print(f"  {count}...")
     countdown_recursive(count - 1)  # Recursive case
+    return
 
 
 def countdown_looping(count):

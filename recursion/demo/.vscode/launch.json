@@ -1,0 +1,38 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Python Debugger: Current File",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${file}",
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Python: Interactive Recursion Demo",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${file}",
+      "console": "integratedTerminal",
+      "args": ["${input:recursion}", "-c", "${input:count}"]
+    }
+  ],
+  "inputs": [
+    {
+      "id": "count",
+      "type": "promptString",
+      "description": "Enter the number to count down from:",
+      "default": "5"
+    },
+    {
+      "id": "recursion",
+      "type": "pickString",
+      "description": "Select recursion or iterarion:",
+      "options": ["-i", "-r"],
+      "default": "-r"
+    }
+  ]
+}
