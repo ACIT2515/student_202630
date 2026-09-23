@@ -28,7 +28,22 @@ Each task has the following attributes:
 
 ## Usage
 
-### 1. Generate Sample Data (Optional)
+### 1. Set up the project with uv
+
+This lab uses `uv` for dependency management. Before running the tests, add
+`pytest` as a development dependency:
+
+```bash
+uv add --dev pytest
+```
+
+You can then run the test suite with:
+
+```bash
+uv run pytest 
+```
+
+### 2. Generate Sample Data (Optional)
 
 If you want to regenerate the sample data file:
 
@@ -38,18 +53,65 @@ python generate_sample_data.py
 
 This creates `sample_tasks.json` with hierarchical task data.
 
-### 2. Run the Task Flattener
+### 3. Run the Task Flattener
+
+The program should accept the input and output filenames from the command line.
 
 ```bash
-python task_flattener.py
+python task_flattener.py sample_tasks.json flattened_tasks.csv
+```
+
+You may also omit the output file name and allow the program to use the default:
+
+```bash
+python task_flattener.py sample_tasks.json
 ```
 
 This will:
 
-1. Read the nested task structure from `sample_tasks.json`
+1. Read the nested task structure from the input JSON file
 2. Flatten it recursively using the `flatten_tasks()` function
 3. Display a summary of all tasks
-4. Save the flattened tasks to `flattened_tasks.csv`
+4. Save the flattened tasks to the output CSV file
+
+The script should use `sys.argv` to read both file names from the command line.
+
+## Handling Missing Files and Exceptions
+
+Your program should also handle file-related problems gracefully.
+
+### Missing input file
+
+If the user runs the program with a file that does not exist, your program should
+catch the `FileNotFoundError` exception and print a helpful message instead of
+crashing.
+
+Example:
+
+```bash
+python task_flattener.py does_not_exist.json
+```
+
+Expected behavior:
+
+```text
+Error: File 'does_not_exist.json' not found.
+Please run 'python generate_sample_data.py' first to create the input file
+```
+
+### Invalid JSON
+
+If the JSON file exists but contains invalid JSON, you should catch
+`json.JSONDecodeError` and display a message that the file is not valid JSON.
+
+### Empty task list
+
+If the input file loads successfully but produces no tasks, the CSV writing step
+should raise a clear exception such as `ValueError` instead of creating a broken
+output file.
+
+This means your implementation should use `try` and `except` blocks around file
+I/O and JSON loading code.
 
 ## Example
 
@@ -122,5 +184,36 @@ Answer the following questions as part of the README.md.
 
 ## Programming Activity
 
-Implement `flatten_tasks` as described in here using the starter code 
-provided in `task_flattener.py`
+This starter intentionally leaves most of the real programming for you to complete.
+The helper functions for parsing arguments, reading JSON, saving CSV, and
+printing the summary are already provided, but the recursive algorithm and the
+overall program flow are your responsibility.
+
+Your job is to:
+
+1. Implement the recursive `flatten_tasks()` function
+2. Use `sys.argv` and `parse_arguments()` to read the input and output filenames
+3. Open and read the JSON file
+4. Call `flatten_tasks()` to recursively flatten the nested structure
+5. Print a summary of the results
+6. Save the flattened output to CSV
+7. Handle file errors and invalid input gracefully
+
+This lab is intentionally structured so students must parse the command line and
+complete most of the actual programming themselves.
+
+## Running the Tests
+
+After you have implemented the recursive function and the CLI flow, run the
+project tests from the lab folder:
+
+```bash
+uv add --dev pytest
+uv run pytest 
+```
+
+The tests check that:
+
+- `parse_arguments()` handles the required command-line inputs correctly
+- `flatten_tasks()` returns the correct flattened list for empty, single, nested,
+and multi-task structures

@@ -10,45 +10,60 @@ where each task appears as a single entry regardless of its nesting level.
 
 import csv
 import json
+import sys
 from typing import Any, Dict, List
 
 
+def parse_arguments(arguments: list[str]) -> tuple[str, str]:
+    """Parse the JSON input file and CSV output file from sys.argv."""
+    if not arguments:
+        raise SystemExit(
+            "Usage: python task_flattener.py <input_file.json> [output_file.csv]"
+        )
+
+    input_file = arguments[0]
+    output_file = "flattened_tasks.csv"
+
+    if len(arguments) > 2:
+        raise SystemExit(
+            "Usage: python task_flattener.py <input_file.json> [output_file.csv]"
+        )
+
+    if len(arguments) == 2:
+        output_file = arguments[1]
+
+    return input_file, output_file
+
+
 def flatten_tasks(tasks: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
-    """
-    Recursively flatten a nested task structure into a flat list.
+    """Recursively flatten a nested task structure into a flat list.
 
-    This function takes a list of tasks where each task may contain sub_tasks,
-    and returns a flat list containing all tasks and subtasks without the
-    hierarchical relationship information.
-
-    Args:
-        tasks: List of task dictionaries, each potentially containing 'sub_tasks'
-
-    Returns:
-        Flat list of all tasks without sub_tasks field
+    Implement the recursive logic that:
+    - processes each task in the list
+    - removes the nested ``sub_tasks`` structure from each task
+    - recursively visits every subtask
+    - returns a single flat list of task dictionaries
 
     Example:
         Input:
         [
             {
-                "details": "Main Task",
+                "details": "Parent",
                 "status": "In Progress",
                 "sub_tasks": [
-                    {"details": "Subtask 1", "status": "Done", "sub_tasks": []},
-                    {"details": "Subtask 2", "status": "Pending", "sub_tasks": []}
+                    {"details": "Child", "status": "Done", "sub_tasks": []}
                 ]
             }
         ]
 
         Output:
         [
-            {"details": "Main Task", "status": "In Progress"},
-            {"details": "Subtask 1", "status": "Done"},
-            {"details": "Subtask 2", "status": "Pending"}
+            {"details": "Parent", "status": "In Progress"},
+            {"details": "Child", "status": "Done"}
         ]
     """
-
-    return flat_list
+    # TODO: implement the recursive flattening logic.
+    return []
 
 
 def read_tasks_from_json(filename: str) -> List[Dict[str, Any]]:
@@ -128,47 +143,15 @@ def print_task_summary(tasks: List[Dict[str, Any]]) -> None:
 
 
 def main():
-    """Main function to demonstrate task flattening."""
-    # Input and output filenames
-    input_file = "sample_tasks.json"
-    output_file = "flattened_tasks.csv"
-
-    try:
-        # Read nested task structure from JSON
-        print(f"Reading tasks from {input_file}...")
-        nested_tasks = read_tasks_from_json(input_file)
-
-        print(f"Loaded {len(nested_tasks)} top-level tasks")
-
-        # Flatten the task structure recursively
-        print("\nFlattening task structure (recursive)...")
-        flat_tasks_recursive = flatten_tasks(nested_tasks)
-
-        # Display summary
-        print_task_summary(flat_tasks_recursive)
-
-        # Save to CSV
-        print(f"\nSaving flattened tasks to {output_file}...")
-        save_tasks_to_csv(flat_tasks_recursive, output_file)
-
-        # Show first few tasks
-        print("\n Tasks in flattened list (recursive):")
-        for i, task in enumerate(flat_tasks_recursive[:5], 1):
-            print(
-                f"{i}. {task['details']} (Status: {task['status']}, "
-                f"Priority: {task['priority']}, Assignee: {task['assignee']})"
-            )
-
-        if len(flat_tasks_recursive) > 5:
-            print(f"... and {len(flat_tasks_recursive) - 5} more tasks")
-
-    except FileNotFoundError:
-        print(
-            f"\nPlease run 'python generate_sample_data.py' first to create {input_file}"
-        )
-    except Exception as e:
-        print(f"An error occurred: {e}")
-        raise
+    """Run the task flattener application."""
+    # TODO: use sys.argv to read the input file and optional output file
+    # TODO: call parse_arguments(sys.argv[1:])
+    # TODO: open and read the JSON file using read_tasks_from_json()
+    # TODO: call flatten_tasks() to flatten the nested structure
+    # TODO: print a summary of the tasks using print_task_summary()
+    # TODO: save the flattened tasks to CSV using save_tasks_to_csv()
+    # TODO: handle missing files and invalid input gracefully
+    pass
 
 
 if __name__ == "__main__":

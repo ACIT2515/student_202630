@@ -72,17 +72,7 @@ def main():
 
         print(f"  Recursive sum: {recursive_result}")
         print(f"  Iterative sum: {iterative_result}")
-        print(
-            f"  Match: {recursive_result == iterative_result}"
-            if recursive_result == iterative_result
-            else "  Match: False "
-        )
-
     print("\n" + "=" * 60)
-    print("\nKey Insights:")
-    print("Recursive solution is more intuitive and mirrors the problem structure")
-    print("Iterative solution uses a stack to manually track what to process")
-    print("Recursion uses the call stack; iteration uses an explicit stack")
 
 
 if __name__ == "__main__":

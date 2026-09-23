@@ -1,4 +1,15 @@
-from task_flattener import flatten_tasks
+from task_flattener import flatten_tasks, parse_arguments
+
+
+def test_parse_arguments_accepts_input_and_output_paths():
+    assert parse_arguments(["sample_tasks.json", "flattened_tasks.csv"]) == (
+        "sample_tasks.json",
+        "flattened_tasks.csv",
+    )
+    assert parse_arguments(["sample_tasks.json"]) == (
+        "sample_tasks.json",
+        "flattened_tasks.csv",
+    )
 
 
 def test_flatten_empty_list():

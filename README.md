@@ -59,7 +59,6 @@
 
 1. [Python Command Line Arguments](/cmdline_arguments/notes/python_cmdline_args_argparse.md)
 1. [Reading and Writing JSON and CSV files](/file_io/notes/json_csv_reading_writing.md)
-
 1. [Exceptions](/exceptions/notes/exceptions.md)
 
 
@@ -67,7 +66,9 @@
 
 1. [Demo: `sys_argv_demo.py`](/cmdline_arguments/demo/sys_argv_demo.py)
 1. [Demo: `argparse_demo.py`](/cmdline_arguments/demo/argparse_demo.py)
-1. [Recursion](/recursion/demo/intro/)
+1. [Recursion](/recursion/demo/recursion_demo.py)
+1. [Recursion: Nested List Demo](/recursion/demo/nested_list_sum_demo.py)
+1. [Recursion: Nested JSON Demo](/recursion/demo/nested_json_recursion.py)
 
 
 ### Exercise
