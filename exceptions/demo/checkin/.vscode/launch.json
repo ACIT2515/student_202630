@@ -1,0 +1,43 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+   {
+      "name": "Python Debugger: checkin_argparse with arguments",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/checkin_argparse.py",
+      "console": "integratedTerminal",
+      "args": [
+        "${input:location}",
+        "${input:mood}"
+      ]
+    },
+   {
+      "name": "Python Debugger: checkin_sys_argv with arguments",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/checkin_sys_argv.py",
+      "console": "integratedTerminal",
+      "args": [
+        "${input:location}",
+        "${input:mood}"
+      ]
+    }  ],
+  "inputs": [
+    {
+      "id": "location",
+      "type": "promptString",
+      "description": "Where are you?",
+      "default": "home"
+    },
+    {
+      "id": "mood",
+      "type": "promptString",
+      "description": "How are you feeling?",
+      "default": "happy"
+    }
+  ]
+}

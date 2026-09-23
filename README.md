@@ -54,3 +54,26 @@
    1. [Recursion Directed Reading Questions](./recursion/notes/recursion_call_stacks_dr_questions.md)
 1. [File IO and Paths](./file_io/notes/file_io.md)
    1. [File IO and Path Directed Reading Questions](./file_io/notes/file_io_dr_questions.md)
+
+### Class Notes
+
+1. [Python Command Line Arguments](/cmdline_arguments/notes/python_cmdline_args_argparse.md)
+1. [Reading and Writing JSON and CSV files](/file_io/notes/json_csv_reading_writing.md)
+
+1. [Exceptions](/exceptions/notes/exceptions.md)
+
+
+### Demos
+
+1. [Demo: `sys_argv_demo.py`](/cmdline_arguments/demo/sys_argv_demo.py)
+1. [Demo: `argparse_demo.py`](/cmdline_arguments/demo/argparse_demo.py)
+1. [Recursion](/recursion/demo/intro/)
+
+
+### Exercise
+
+1. [Letter Frequency Command Line](/cmdline_arguments/exercises/letter_frequency_cmd/cmd_line_arguments_letter_frequency.md)
+
+### Lab
+
+1. [Recursion File Reading Task Flattener](/recursion/labs/task_flattener/student/recusrion_task_flattener_lab.md)

@@ -1,0 +1,38 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Python Debugger: Current File",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${file}",
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Python: Interactive Args",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${file}",
+      "console": "integratedTerminal",
+      "args": ["${input:text}", "${input:operation}"]
+    }
+  ],
+  "inputs": [
+    {
+      "id": "text",
+      "type": "promptString",
+      "description": "Enter text to process:",
+      "default": "testing"
+    },
+    {
+      "id": "operation",
+      "type": "pickString",
+      "description": "Select operation:",
+      "options": ["-u", "-l", "-r"],
+      "default": "-u"
+    }
+  ]
+}

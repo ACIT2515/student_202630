@@ -1,0 +1,19 @@
+due_date,start_date,status,priority,details,assignee
+2026-02-15,2026-01-10,In Progress,High,Deploy New Web Application,Alice Johnson
+2026-01-20,2026-01-10,Completed,High,Setup Database Infrastructure,Bob Smith
+2026-01-12,2026-01-10,Completed,High,Provision Database Server,Bob Smith
+2026-01-15,2026-01-13,Completed,Medium,Configure Security Groups,Charlie Davis
+2026-01-18,2026-01-16,Completed,High,Import Initial Data,Bob Smith
+2026-02-01,2026-01-21,In Progress,High,Develop Application Features,Diana Martinez
+2026-01-25,2026-01-21,Completed,High,User Authentication Module,Diana Martinez
+2026-01-30,2026-01-26,In Progress,Medium,Dashboard Interface,Ethan Wilson
+2026-01-27,2026-01-26,Completed,Medium,Design Dashboard Mockups,Ethan Wilson
+2026-01-30,2026-01-28,In Progress,Medium,Implement Dashboard Components,Fiona Lee
+2026-02-10,2026-02-02,Not Started,High,Testing and QA,George Taylor
+2026-02-05,2026-02-02,Not Started,High,Unit Testing,George Taylor
+2026-02-08,2026-02-06,Not Started,High,Integration Testing,Hannah Brown
+2026-02-10,2026-02-09,Not Started,Medium,User Acceptance Testing,Ian Clark
+2026-02-15,2026-02-11,Not Started,High,Production Deployment,Alice Johnson
+2026-03-01,2026-02-01,Not Started,Medium,Security Audit,Jack Anderson
+2026-02-15,2026-02-01,Not Started,Medium,Vulnerability Scanning,Jack Anderson
+2026-02-25,2026-02-16,Not Started,High,Penetration Testing,Karen White
