@@ -1,9 +1,11 @@
+import pytest
 from letter_frequency import char_freq, histogram, letter_freq, parse_arguments
 
 
-def test_parse_arguments_supports_sys_argv_style_flags():
-    assert parse_arguments(["Hello world!", "--letters"]) == ("Hello world!", "letters")
+def test_parse_arguments_supports_short_flags():
+    assert parse_arguments(["Hello world!", "-l"]) == ("Hello world!", "letters")
     assert parse_arguments(["Hello world!", "-c"]) == ("Hello world!", "chars")
+    assert parse_arguments(["Hello world!", "-g"]) == ("Hello world!", "histogram")
     assert parse_arguments(["Hello world!"]) == ("Hello world!", "histogram")
 
 

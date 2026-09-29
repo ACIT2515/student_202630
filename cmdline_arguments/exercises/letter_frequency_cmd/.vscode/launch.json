@@ -1,0 +1,55 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Python: Letter Frequency (interactive)",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/letter_frequency.py",
+      "console": "integratedTerminal",
+      "args": [
+        "${input:inputString}",
+        "${input:operation}"
+      ]
+    },
+    {
+      "name": "Python: Letter Frequency (default histogram)",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/letter_frequency.py",
+      "console": "integratedTerminal",
+      "args": [
+        "${input:inputString}"
+      ]
+    },
+    {
+      "name": "Python: Letter Frequency (help)",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/letter_frequency.py",
+      "console": "integratedTerminal",
+      "args": [
+        "-h"
+      ]
+    }
+  ],
+  "inputs": [
+    {
+      "id": "inputString",
+      "type": "promptString",
+      "description": "Enter the string to analyze:",
+      "default": "Hello world!"
+    },
+    {
+      "id": "operation",
+      "type": "pickString",
+      "description": "Select the operation:",
+      "options": [
+        "-c",
+        "-l",
+        "-g"
+      ],
+      "default": "-g"
+    }
+  ]
+}

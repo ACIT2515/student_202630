@@ -1,22 +1,31 @@
+"""Count characters and letters from a command-line input string."""
+
 import string
 import sys
 
 
 def parse_arguments(arguments: list[str]) -> tuple[str, str]:
-    """Parse a simplified sys.argv-style command line.
+    """Parse a simplified ``sys.argv``-style command line.
 
-    The CLI accepts a positional input string and zero or one operation flag.
-    If no flag is provided, the default operation is histogram.
+    Args:
+        arguments: Command-line arguments excluding the program name. The
+            first argument is the input string, followed by an optional
+            operation flag.
+
+    Returns:
+        A tuple containing the input string and the selected operation name.
+
+    Raises:
+        SystemExit: If the input is missing, a flag is invalid, or more than
+            one operation flag is provided. ``-h`` exits successfully.
     """
-    if not arguments:
-        raise SystemExit(
-            'Usage: python frequency_analysis.py "input string" [-c | --chars | -l | --letters | -g | --histogram]'
-        )
+    usage = 'Usage: python letter_frequency.py "input string" [-c | -l | -g]'
 
-    if arguments[0] in {"-h", "--help"}:
-        print(
-            'Usage: python frequency_analysis.py "input string" [-c | --chars | -l | --letters | -g | --histogram]'
-        )
+    if not arguments:
+        raise SystemExit(usage)
+
+    if arguments[0] == "-h":
+        print(usage)
         raise SystemExit(0)
 
     input_text = arguments[0]
@@ -27,11 +36,11 @@ def parse_arguments(arguments: list[str]) -> tuple[str, str]:
 
     if len(arguments) == 2:
         flag = arguments[1]
-        if flag in {"-c", "--chars"}:
+        if flag == "-c":
             operation = "chars"
-        elif flag in {"-l", "--letters"}:
+        elif flag == "-l":
             operation = "letters"
-        elif flag in {"-g", "--histogram"}:
+        elif flag == "-g":
             operation = "histogram"
         else:
             raise SystemExit(f"Error: unknown flag: {flag}")
@@ -40,13 +49,13 @@ def parse_arguments(arguments: list[str]) -> tuple[str, str]:
 
 
 def char_freq(in_string: str) -> dict[str, int]:
-    """Convert input string to a dictionary of letter frequencies
+    """Count occurrences of each character in a string.
 
     Args:
-        string characters to calculate frequencies for
+        in_string: String whose characters should be counted.
 
     Returns:
-        A dict mapping the character to the number of times it appears
+        A dictionary mapping each character to its number of occurrences.
     """
     letter_freq = {}
     in_string = "".join(sorted(in_string))
@@ -60,16 +69,15 @@ def char_freq(in_string: str) -> dict[str, int]:
     return letter_freq
 
 
-def histogram(in_string):
-    """Generate a histogram of letters for each letter in the in input string
+def histogram(in_string: str) -> str:
+    """Format a letter-frequency histogram for a string.
 
     Args:
-        in_string:  input string to used to generate letter frequency histogram
+        in_string: String whose letters should be included in the histogram.
 
     Returns:
-        string with leading with the letter followed a star for each time the
-        letter appears in the input string
-
+        A newline-terminated string with one line per letter. Each line
+        contains the lowercase letter followed by one asterisk per occurrence.
     """
 
     lt_frq = letter_freq(in_string)
@@ -80,16 +88,15 @@ def histogram(in_string):
     return return_string
 
 
-def letter_freq(in_string):
-    """Convert input string to a dictionary of letter frequencies,
-    after removing punctuation and spaces. Counts upper and lower case
-    letters together.
+def letter_freq(in_string: str) -> dict[str, int]:
+    """Count letters without spaces or punctuation, ignoring case.
 
     Args:
-        in_string: string to count the letter frequencies of
+        in_string: String whose letters should be counted.
 
     Returns:
-       dict mapping letter in string to the number of occurrences in input
+        A dictionary mapping each lowercase character to its number of
+        occurrences. Digits and other non-punctuation characters are retained.
     """
 
     letters_to_remove = set(string.punctuation + " ")
@@ -105,6 +112,7 @@ def letter_freq(in_string):
 
 
 def main() -> None:
+    """Run the command-line frequency analysis application."""
     try:
         in_string, operation = parse_arguments(sys.argv[1:])
     except SystemExit as error:
