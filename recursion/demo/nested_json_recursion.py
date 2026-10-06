@@ -17,7 +17,7 @@ def flatten_groups(groups: list[dict], parent_name: str = "") -> list[dict]:
         flatten_groups([
             {"name": "A", "sub-groups": [{"name": "A1"}]}
         ])
-        -> [{"name": "A"}, {"name": "A.A1"}]
+        -> [{"name": ""}, {"name": A"A.A1"}]
     """
     flat_list: list[dict] = []
 

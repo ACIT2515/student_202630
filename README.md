@@ -78,3 +78,63 @@
 ### Lab
 
 1. [Recursion File Reading Task Flattener](/recursion/labs/task_flattener/student/recusrion_task_flattener_lab.md)
+
+### Review
+
+1. [Recursive Functions (Learning Python)](https://learning.oreilly.com/library/view/learning-python-6th/9781098171292/ch19.html#recursive_functions)
+
+## Week 04
+
+Cancelled
+
+## Week 05
+
+### Argument Unpacking
+
+#### Notes
+
+1. [Notes: Argument Unpacking: Args, Kwargs, \*, \*\*](./argument_un_packing/notes/argument_unpacking_args_kwargs.md)
+
+#### Exercises
+
+1. [Exercise: Unpacking by Position](./argument_un_packing/exercises/unpacking_by_position_args.md)
+1. [Exercise: Unpacking with Keywords](./argument_un_packing/exercises/unpacking_w_keywords_kwargs.md)
+
+### Decorators
+
+#### Notes
+
+1. [Notes: Higher Order Functions, Closures, and Decorators](/decorators_higher_order_function//notes//higher_order_functions_decorators.md).
+
+#### Demo
+
+1. [Demo: decorators](./decorators_higher_order_function/demo/decorators.py)
+
+#### Exercises
+
+1. [Exercise: `call_count` decorator](/decorators_higher_order_function/exercises/call_count_decorator/call_count_decorator.md)
+
+
+## Week 06
+
+### Object Oriented Python
+
+#### Flipped
+
+1. [OOP Concepts](https://learning.oreilly.com/videos/python-object-oriented/9781837638765/9781837638765-video1_2/)
+1. [Creating Object Attributes](https://learning.oreilly.com/videos/python-object-oriented/9781837638765/9781837638765-video1_3/)
+1. [Creating Object Methods](https://learning.oreilly.com/videos/python-object-oriented/9781837638765/9781837638765-video1_4/)
+1. [Printing Objects](https://learning.oreilly.com/videos/python-object-oriented/9781837638765/9781837638765-video1_5/)
+1. [Inheritance and Abstraction](https://learning.oreilly.com/videos/python-object-oriented/9781837638765/9781837638765-video2_1/)
+1. [Class vs Object Attributes](https://learning.oreilly.com/videos/python-object-oriented/9781837638765/9781837638765-video3_1/)
+1. [Class Methods](https://learning.oreilly.com/videos/python-object-oriented/9781837638765/9781837638765-video3_2/)
+1. [Encapsulation: Public and Private Visibility](https://learning.oreilly.com/videos/python-object-oriented/9781837638765/9781837638765-video4_1/)
+1. [Encapsulation: Getters and Setters](https://learning.oreilly.com/videos/python-object-oriented/9781837638765/9781837638765-video4_2/)
+1. [Encapsulation: Methods as Attributes](https://learning.oreilly.com/videos/python-object-oriented/9781837638765/9781837638765-video4_3/)
+
+
+#### Notes
+
+1. [Object Oriented Python](./object_oriented/notes/oop_python_intro.md)
+1. [Documenting Classes: UML](./object_oriented/notes/uml.md)
+
