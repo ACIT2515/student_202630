@@ -31,7 +31,6 @@
    1. [Python Project Management: Virtual Environments and Managing Dependencies Directed Read Questions](/uv_dependencies_virtual_environments/notes/virtual_environments_dependencies_dr_questions.md)
    1. [Python Project Management:Virtual Environments and Managing Dependencies Directed Reading Answers](/uv_dependencies_virtual_environments/notes/virtual_environments_dependencies_dr_answers.md)
 
-
 #### Demo
 
 1. [System Info Reporter: Standard Library](/labs/wk01/sysinfo_reporter_soln/)
@@ -61,7 +60,6 @@
 1. [Reading and Writing JSON and CSV files](/file_io/notes/json_csv_reading_writing.md)
 1. [Exceptions](/exceptions/notes/exceptions.md)
 
-
 ### Demos
 
 1. [Demo: `sys_argv_demo.py`](/cmdline_arguments/demo/sys_argv_demo.py)
@@ -69,7 +67,6 @@
 1. [Recursion](/recursion/demo/recursion_demo.py)
 1. [Recursion: Nested List Demo](/recursion/demo/nested_list_sum_demo.py)
 1. [Recursion: Nested JSON Demo](/recursion/demo/nested_json_recursion.py)
-
 
 ### Exercise
 
@@ -114,7 +111,6 @@ Cancelled
 
 1. [Exercise: `call_count` decorator](/decorators_higher_order_function/exercises/call_count_decorator/call_count_decorator.md)
 
-
 ## Week 06
 
 ### Object Oriented Python
@@ -132,13 +128,17 @@ Cancelled
 1. [Encapsulation: Getters and Setters](https://learning.oreilly.com/videos/python-object-oriented/9781837638765/9781837638765-video4_2/)
 1. [Encapsulation: Methods as Attributes](https://learning.oreilly.com/videos/python-object-oriented/9781837638765/9781837638765-video4_3/)
 
-
 #### Notes
 
 1. [Object Oriented Python](./object_oriented/notes/oop_python_intro.md)
 1. [Documenting Classes: UML](./object_oriented/notes/uml.md)
 
-## Exercises
+### Exercises
 
 1. [Books and Library](./object_oriented/exercises/books_library/student/intro_oo_library.md)
+
+## Week 07
+
+### Exercises
+
 1. [Blackjack](./object_oriented/exercises/blackjack/student/README.md)
