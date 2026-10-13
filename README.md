@@ -138,3 +138,7 @@ Cancelled
 1. [Object Oriented Python](./object_oriented/notes/oop_python_intro.md)
 1. [Documenting Classes: UML](./object_oriented/notes/uml.md)
 
+## Exercises
+
+1. [Books and Library](./object_oriented/exercises/books_library/student/intro_oo_library.md)
+1. [Blackjack](./object_oriented/exercises/blackjack/student/README.md)
