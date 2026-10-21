@@ -49,10 +49,10 @@ Use `uv` to create a virtual environment and install dependencies:
 
 ```powershell
 # Initialize a new Python project with uv
-uv init
+uv init --no-package
 
 # Create virtual environment
-uv venv
+uv venv 
 
 # Activate the virtual environment
 # On Windows PowerShell:
