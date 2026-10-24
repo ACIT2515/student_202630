@@ -1,0 +1,161 @@
+@page {
+  size: letter landscape;
+  margin: 0.28in;
+}
+
+@media print {
+  .markdown-preview.markdown-preview {
+    box-sizing: border-box;
+    display: block;
+    column-count: auto;
+    color: #111;
+    font-family: "Segoe UI", Arial, sans-serif;
+    font-size: 7.2pt;
+    line-height: 1.12;
+  }
+
+  .markdown-preview.markdown-preview:not(:has(.print-section)),
+  .markdown-preview.markdown-preview .print-section {
+    display: block;
+    column-count: 2;
+    column-gap: 0.2in;
+    column-rule: 0.5pt solid #b8b8b8;
+    column-fill: balance;
+  }
+
+  .markdown-preview.markdown-preview .print-intro {
+    display: block;
+    margin-bottom: 0.06in;
+  }
+
+  /* Page breaks belong between column containers, not inside a column flow. */
+  .markdown-preview.markdown-preview .print-section ~ .print-section {
+    page-break-before: always;
+    break-before: page;
+  }
+
+  .markdown-preview.markdown-preview h1 {
+    column-span: all;
+    font-size: 14pt;
+    line-height: 1.1;
+    margin: 0 0 0.08in;
+    break-after: avoid;
+  }
+
+  .markdown-preview.markdown-preview h2,
+  .markdown-preview.markdown-preview h3,
+  .markdown-preview.markdown-preview h4,
+  .markdown-preview.markdown-preview h5 {
+    break-after: avoid-column;
+    break-inside: avoid-column;
+    font-size: 9pt;
+    line-height: 1.08;
+    margin: 0.08in 0 0.03in;
+    padding: 0;
+  }
+
+  .markdown-preview.markdown-preview h2 {
+    column-span: all;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0.035in 0.05in;
+    background-color: #dedede;
+    border-left: 2.5pt solid #555;
+    border-bottom: 0.5pt solid #999;
+    color: #111;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .markdown-preview.markdown-preview h3 {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0.025in 0.05in;
+    background-color: #f0f0f0;
+    border-left: 1.5pt solid #888;
+    color: #111;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .markdown-preview.markdown-preview h4 {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0.02in 0.05in;
+    background-color: #f7f7f7;
+    border-left: 1pt dashed #999;
+    border-bottom: 0.35pt solid #ccc;
+    color: #222;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .markdown-preview.markdown-preview h5 {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0.02in 0.05in;
+    background-color: #fafafa;
+    border: 0.35pt solid #ccc;
+    color: #333;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .markdown-preview.markdown-preview p {
+    margin: 0.025in 0;
+    orphans: 2;
+    widows: 2;
+  }
+
+  .markdown-preview.markdown-preview ul,
+  .markdown-preview.markdown-preview ol {
+    margin: 0.03in 0;
+    padding-left: 0.16in;
+  }
+
+  .markdown-preview.markdown-preview li {
+    margin: 0;
+  }
+
+  .markdown-preview.markdown-preview pre,
+  .markdown-preview.markdown-preview table,
+  .markdown-preview.markdown-preview blockquote,
+  .markdown-preview.markdown-preview .mermaid {
+    break-inside: avoid-column;
+    max-width: 100%;
+  }
+
+  .markdown-preview.markdown-preview pre {
+    box-sizing: border-box;
+    margin: 0.035in 0;
+    overflow: visible;
+    padding: 0.04in;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    font-size: 5.8pt;
+    line-height: 1.05;
+  }
+
+  .markdown-preview.markdown-preview code {
+    font-size: 0.92em;
+  }
+
+  .markdown-preview.markdown-preview .mermaid svg,
+  .markdown-preview.markdown-preview svg {
+    display: block;
+    height: auto;
+    max-width: 100%;
+  }
+
+  .markdown-preview.markdown-preview a {
+    color: #111;
+    text-decoration: none;
+  }
+
+  .markdown-preview.markdown-preview hr {
+    border: 0;
+    border-top: 0.5pt solid #888;
+    margin: 0.06in 0;
+  }
+}

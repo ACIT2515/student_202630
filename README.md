@@ -142,3 +142,8 @@ Cancelled
 ### Exercises
 
 1. [Blackjack](./object_oriented/exercises/blackjack/student/README.md)
+
+### Mid Term Exam 
+
+1. [Mid Term Overview](/exams/202630/mid_term/mid_term_overview.md)
+1. [Reference Sheet](/exams/202630/mid_term/ref_sheet/ref_sheet.pdf)
