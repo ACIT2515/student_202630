@@ -157,7 +157,8 @@ Cancelled
 ### Exercises
 
 1. [Shapes and Inheritance](./object_oriented/exercises/shapes_inheritance/student/README.md)
-1. [Fantasy Game](./object_oriented/exercises/fantasy_game/student/README.md)
+1. [Inheritance Exploration: Warlords Siege](./object_oriented/exercises/fantasy_game/inheritance_exploration_fantasy_game.md)
+   1. [Fantasy Game](./object_oriented/exercises/fantasy_game/student/README.md)
 
 ### Additional Reading
 
