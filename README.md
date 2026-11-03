@@ -161,4 +161,4 @@ Cancelled
 
 ### Additional Reading
 
-1. [Iheritence and Composition: A Python OOP Guide](https://realpython.com/inheritance-composition-python/)
+1. [Inheritance and Composition: A Python OOP Guide](https://realpython.com/inheritance-composition-python/)
