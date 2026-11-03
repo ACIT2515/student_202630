@@ -143,7 +143,22 @@ Cancelled
 
 1. [Blackjack](./object_oriented/exercises/blackjack/student/README.md)
 
-### Mid Term Exam 
+## Week 08 Mid Term Exam 
 
 1. [Mid Term Overview](/exams/202630/mid_term/mid_term_overview.md)
 1. [Reference Sheet](/exams/202630/mid_term/ref_sheet/ref_sheet.pdf)
+
+## Week 09
+
+### Flipped
+
+1. [Inheritance and Abstract Base Classes](./object_oriented/notes/oo_inheritence_abc.md)
+
+### Exercises
+
+1. [Shapes and Inheritance](./object_oriented/exercises/shapes_inheritance/student/README.md)
+1. [Fantasy Game](./object_oriented/exercises/fantasy_game/student/README.md)
+
+### Additional Reading
+
+1. [Iheritence and Composition: A Python OOP Guide](https://realpython.com/inheritance-composition-python/)

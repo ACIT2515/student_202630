@@ -1,0 +1,21 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Run shapes.py",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/shapes.py",
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Debug pytest",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "pytest",
+      "args": ["-q"],
+      "console": "integratedTerminal",
+      "justMyCode": false
+    }
+  ]
+}

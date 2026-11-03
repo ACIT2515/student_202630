@@ -1,0 +1,20 @@
+[project]
+name = "fantasy-game"
+version = "0.1.0"
+description = "A game used to demonstrate OO "
+readme = "README.md"
+authors = [
+    { name = "Thomas Lane", email = "thomas_lane@bcit.ca" }
+]
+requires-python = ">=3.14"
+dependencies = []
+
+[dependency-groups]
+dev = [
+    "pylint>=3.3.8",
+    "pytest>=8.4.2",
+    "pytest-cov>=7.0.0",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
