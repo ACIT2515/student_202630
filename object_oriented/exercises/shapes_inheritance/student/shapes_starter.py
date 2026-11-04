@@ -16,6 +16,7 @@ Key OOP concepts to use:
 - class SubClass(ParentClass):  to inherit from a parent
 - super().__init__(...)         to call the parent constructor
 - def method(self):            to override a parent method
+- def __lt__(self, other):     dunder method that lets sorted() order shapes
 """
 
 import math
@@ -31,23 +32,35 @@ import turtle
 #     - Store center as self._center (protected), e.g. (-180, 0)
 #
 #   @property color -> str
-#     - Return self._color
-#
-#   @color.setter color(value: str)
-#     - Store value in self._color
+#     - Return self._color (read-only, no setter - changing the color after
+#       the shape is drawn would leave the canvas showing the old color)
 #
 #   @property center -> tuple[float, float]
 #     - Return self._center (read-only, no setter)
 #
-#   def area(self) -> float
-#     - raise NotImplementedError("Subclasses must implement area()")
+#   @property area -> float
+#     - raise NotImplementedError("Subclasses must implement area")
+#     - A property because the area is a computed value that callers read
+#       like an attribute: shape.area, no parentheses
 #
-#   def perimeter(self) -> float
-#     - raise NotImplementedError("Subclasses must implement perimeter()")
+#   @property perimeter -> float
+#     - raise NotImplementedError("Subclasses must implement perimeter")
+#     - A property, same as area
 #
 #   def draw(self, pen)
 #     - raise NotImplementedError("Subclasses must implement draw()")
 #     - pen is a turtle.Turtle created and passed in by the provided Canvas
+#
+#   def __lt__(self, other) -> bool
+#     - Return self.area < other.area
+#     - This "dunder" (double underscore) method is what Python calls when
+#       it evaluates shape_a < shape_b. Defining it is all that sorted()
+#       and list.sort() need to order a list of shapes by area.
+#     - The provided Canvas.largest_shape() calls sorted() on its shapes,
+#       so it will not work until you implement __lt__.
+#     - Note: reading area raises NotImplementedError on the base Shape,
+#       but a Circle or Rectangle runs its own overridden area property -
+#       polymorphism!
 #
 # Drawing recipe used by every shape (see "Turtle Drawing Primer" in README):
 #   1. pen.penup()                         lift the pen - moving won't draw
@@ -55,6 +68,7 @@ import turtle
 #   3. pen.setheading(0); pen.pendown()    face right, put the pen down
 #   4. pen.color(self.color)
 #      pen.begin_fill() ... draw outline ... pen.end_fill()
+#   5. pen.penup()                         leave the pen lifted when done
 # ---------------------------------------------------------------------------
 # TODO 2: Implement the Circle subclass
 # ---------------------------------------------------------------------------
@@ -69,10 +83,10 @@ import turtle
 #   @property radius -> float
 #     - Return self._radius
 #
-#   def area(self) -> float
+#   @property area -> float
 #     - Return math.pi * self._radius ** 2   (π × r²)
 #
-#   def perimeter(self) -> float
+#   @property perimeter -> float
 #     - Return 2 * math.pi * self._radius    (circumference = 2πr)
 #
 #   def draw(self, pen)
@@ -97,6 +111,7 @@ import turtle
 #         pen.begin_fill()
 #         pen.circle(self._radius)
 #         pen.end_fill()
+#         pen.penup()
 # ---------------------------------------------------------------------------
 # TODO 3: Implement the Rectangle subclass
 # ---------------------------------------------------------------------------
@@ -112,10 +127,10 @@ import turtle
 #   @property width -> float
 #   @property height -> float
 #
-#   def area(self) -> float
+#   @property area -> float
 #     - Return self._width * self._height
 #
-#   def perimeter(self) -> float
+#   @property perimeter -> float
 #     - Return 2 * (self._width + self._height)
 #
 #   def draw(self, pen)
@@ -143,6 +158,7 @@ import turtle
 #             pen.forward(____)         # right or left side
 #             pen.left(90)
 #         pen.end_fill()
+#         pen.penup()
 #
 #     - Check with: pytest test_shapes.py -k draw -v
 
@@ -157,7 +173,7 @@ class Canvas:
     The canvas size is shared by every Canvas, so it is defined with
     class attributes rather than instance attributes.
 
-    Demonstrates polymorphism - the canvas calls area() and draw() on
+    Demonstrates polymorphism - the canvas reads area and calls draw() on
     each shape without needing to know the specific shape type.
     """
 
@@ -194,21 +210,23 @@ class Canvas:
         """Get the sum of areas of all shapes on the canvas."""
         total = 0.0
         for shape in self._shapes:
-            total += shape.area()
+            total += shape.area
         return total
 
     def largest_shape(self):
         """
         Return the shape with the largest area.
 
+        Uses sorted(), which orders the shapes with Shape.__lt__, instead
+        of a hand-written search loop. The last shape in ascending order
+        is the largest.
+
         Returns:
             Shape: The shape with the largest area, or None if canvas is empty
         """
-        largest = None
-        for shape in self._shapes:
-            if largest is None or shape.area() > largest.area():
-                largest = shape
-        return largest
+        if not self._shapes:
+            return None
+        return sorted(self._shapes)[-1]
 
     def draw(self):
         """
@@ -255,11 +273,16 @@ def main():
     print(f"Total shapes on canvas: {canvas.shape_count}")
     print(f"Total area:             {canvas.total_area:.2f}")
 
-    # 6. Find the largest shape
+    # 6. Find the largest shape (sorted() uses Shape.__lt__)
     biggest = canvas.largest_shape()
-    print(f"\nLargest shape: {type(biggest).__name__} ({biggest.area():.2f})")
+    print(f"\nLargest shape: {type(biggest).__name__} ({biggest.area:.2f})")
 
-    # 7. Demonstrate isinstance() and the inherited attributes
+    # 7. Sort the shapes by area - sorted() compares them with Shape.__lt__
+    print("\nShapes sorted by area (smallest to largest):")
+    for shape in sorted([rect, circle]):
+        print(f"  {type(shape).__name__}: {shape.area:.2f}")
+
+    # 8. Demonstrate isinstance() and the inherited attributes
     print("\nDemonstrating isinstance() checks:")
     for shape in [circle, rect]:
         print(f"  {type(shape).__name__} at {shape.center} in {shape.color}")
@@ -267,12 +290,14 @@ def main():
         print(f"    isinstance(shape, Circle)?    {isinstance(shape, Circle)}")
         print(f"    isinstance(shape, Rectangle)? {isinstance(shape, Rectangle)}")
 
-    # 8. Use the inherited color property setter
-    print("\nChanging circle color from red to purple...")
-    circle.color = "purple"
-    print(f"Circle color is now: {circle.color}")
+    # 9. color is read-only - a recolored shape must be a new object
+    print("\nTrying to change the circle's color...")
+    try:
+        circle.color = "purple"
+    except AttributeError:
+        print("AttributeError: color is read-only - create a new shape instead")
 
-    # 9. Draw the shapes - close the window to end the program
+    # 10. Draw the shapes - close the window to end the program
     print("\nDrawing shapes... close the window to exit.")
     canvas.draw()
 

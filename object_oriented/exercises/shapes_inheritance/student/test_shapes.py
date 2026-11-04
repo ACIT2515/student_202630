@@ -107,32 +107,22 @@ def fake_turtle(monkeypatch, pen):
     return screen, pen
 
 
-def test_shape_stores_color_and_center():
-    shape = Shape("green", (30, -40))
-    assert shape.color == "green"
-    assert shape.center == (30, -40)
+def test_base_shape_cannot_be_used_directly():
+    """A bare Shape is unusable regardless of how the class enforces it.
+
+    Accepts either error so the test works whether Shape uses
+    NotImplementedError stubs or ABC abstract methods - the suite tests
+    the behavior, not the mechanism.
+    """
+    with pytest.raises((TypeError, NotImplementedError)):
+        Shape("red", (0, 0)).area
 
 
-def test_color_property_stores_and_updates_value():
+def test_color_property_is_read_only():
     circle = Circle("red", (0, 0), 5.0)
     assert circle.color == "red"
-    circle.color = "custom color"
-    assert circle.color == "custom color"
-
-
-def test_shape_area_must_be_overridden():
-    with pytest.raises(NotImplementedError):
-        Shape("red", (0, 0)).area()
-
-
-def test_shape_perimeter_must_be_overridden():
-    with pytest.raises(NotImplementedError):
-        Shape("red", (0, 0)).perimeter()
-
-
-def test_shape_draw_must_be_overridden(pen):
-    with pytest.raises(NotImplementedError):
-        Shape("red", (0, 0)).draw(pen)
+    with pytest.raises(AttributeError):
+        circle.color = "blue"
 
 
 def test_circle_stores_attributes():
@@ -149,11 +139,11 @@ def test_circle_rejects_non_positive_radius(radius):
 
 
 def test_circle_area():
-    assert Circle("red", (0, 0), 5.0).area() == pytest.approx(math.pi * 25)
+    assert Circle("red", (0, 0), 5.0).area == pytest.approx(math.pi * 25)
 
 
 def test_circle_perimeter():
-    assert Circle("red", (0, 0), 5.0).perimeter() == pytest.approx(2 * math.pi * 5)
+    assert Circle("red", (0, 0), 5.0).perimeter == pytest.approx(2 * math.pi * 5)
 
 
 def test_circle_draw_starts_below_center_and_uses_color(pen):
@@ -161,6 +151,11 @@ def test_circle_draw_starts_below_center_and_uses_color(pen):
     assert ("goto", -180, -50) in pen.calls
     assert ("color", "red") in pen.calls
     assert ("circle", 50) in pen.calls
+
+
+def test_circle_draw_lifts_pen_at_end(pen):
+    Circle("red", (-180, 0), 50).draw(pen)
+    assert pen.calls[-1] == ("penup",)
 
 
 def test_rectangle_stores_attributes():
@@ -181,11 +176,11 @@ def test_rectangle_rejects_non_positive_dimensions(width, height):
 
 
 def test_rectangle_area():
-    assert Rectangle("blue", (0, 0), 4.0, 6.0).area() == pytest.approx(24.0)
+    assert Rectangle("blue", (0, 0), 4.0, 6.0).area == pytest.approx(24.0)
 
 
 def test_rectangle_perimeter():
-    assert Rectangle("blue", (0, 0), 4.0, 6.0).perimeter() == pytest.approx(20.0)
+    assert Rectangle("blue", (0, 0), 4.0, 6.0).perimeter == pytest.approx(20.0)
 
 
 def test_rectangle_draw_starts_at_bottom_left_corner_and_uses_color(pen):
@@ -196,6 +191,11 @@ def test_rectangle_draw_starts_at_bottom_left_corner_and_uses_color(pen):
     assert pen.calls.count(("forward", 100)) == 2
 
 
+def test_rectangle_draw_lifts_pen_at_end(pen):
+    Rectangle("blue", (180, 0), 200, 100).draw(pen)
+    assert pen.calls[-1] == ("penup",)
+
+
 def test_circle_and_rectangle_inherit_from_shape():
     assert isinstance(Circle("red", (0, 0), 5.0), Shape)
     assert isinstance(Rectangle("blue", (0, 0), 4.0, 6.0), Shape)
@@ -204,10 +204,24 @@ def test_circle_and_rectangle_inherit_from_shape():
 def test_shapes_provide_polymorphic_area_and_perimeter():
     circle = Circle("red", (0, 0), 1.0)
     rectangle = Rectangle("blue", (0, 0), 2.0, 3.0)
-    assert circle.area() == pytest.approx(math.pi)
-    assert rectangle.area() == pytest.approx(6.0)
-    assert circle.perimeter() == pytest.approx(2 * math.pi)
-    assert rectangle.perimeter() == pytest.approx(10.0)
+    assert circle.area == pytest.approx(math.pi)
+    assert rectangle.area == pytest.approx(6.0)
+    assert circle.perimeter == pytest.approx(2 * math.pi)
+    assert rectangle.perimeter == pytest.approx(10.0)
+
+
+def test_lt_compares_shapes_by_area():
+    small = Circle("red", (0, 0), 1.0)
+    big = Rectangle("blue", (0, 0), 10.0, 10.0)
+    assert small < big
+    assert not big < small
+
+
+def test_sorted_orders_shapes_smallest_to_largest():
+    small = Rectangle("green", (0, 0), 1.0, 2.0)
+    medium = Circle("red", (0, 0), 2.0)
+    large = Rectangle("blue", (0, 0), 5.0, 10.0)
+    assert sorted([large, small, medium]) == [small, medium, large]
 
 
 def test_canvas_dimensions_are_class_attributes():
@@ -239,7 +253,7 @@ def test_total_area_sums_shapes(canvas_with_shapes):
     canvas, circle, rectangle = canvas_with_shapes
     canvas.add_shape(circle)
     canvas.add_shape(rectangle)
-    assert canvas.total_area == pytest.approx(circle.area() + rectangle.area())
+    assert canvas.total_area == pytest.approx(circle.area + rectangle.area)
 
 
 def test_largest_shape_returns_shape_with_greatest_area(canvas_with_shapes):

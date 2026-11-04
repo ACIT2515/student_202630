@@ -19,10 +19,11 @@ and draws them in a window using Python's built-in `turtle` module.
 
 - Defining a subclass: `class Circle(Shape):`
 - Calling the parent constructor: `super().__init__(color, center)`
-- Overriding methods: `area()`, `perimeter()`, and `draw()`
+- Overriding: the `area` and `perimeter` properties and the `draw()` method
 - Polymorphism — calling the same method on different object types
+- A dunder method (`__lt__`) so shapes can be compared and sorted by area
 - `isinstance()` checks
-- Properties for accessing object attributes
+- Read-only properties for accessing object attributes
 - Class attributes (read the provided `Canvas.WIDTH` and `Canvas.HEIGHT`)
 
 **Files Provided:**
@@ -76,6 +77,40 @@ for animal in animals:
 | Inherit from a class | `class Sub(Parent):` | When Sub IS-A Parent |
 | Call parent constructor | `super().__init__(...)` | Always in `__init__` |
 | Override a method | Redefine `def method(self):` in the subclass | When behavior differs |
+
+---
+
+## Background: Dunder Methods and Sorting
+
+Methods whose names start and end with double underscores — like `__init__` —
+are called **dunder** (double underscore) methods. You never call them
+directly; Python calls them for you when you use built-in syntax. You have
+already used one: `Circle("red", (0, 0), 5)` makes Python call
+`Circle.__init__`.
+
+The dunder method `__lt__` ("less than") is called whenever Python evaluates
+`a < b`:
+
+```python
+class Server:
+    def __init__(self, name, cpu_load):
+        self.name = name
+        self.cpu_load = cpu_load
+
+    def __lt__(self, other):
+        return self.cpu_load < other.cpu_load   # compare by CPU load
+
+
+servers = [Server("web01", 0.82), Server("db01", 0.35), Server("web02", 0.56)]
+servers.sort()                 # list.sort() compares servers with __lt__
+quietest = sorted(servers)[0]  # sorted() does too - db01 (0.35)
+```
+
+Because `sorted()` and `list.sort()` order items by repeatedly asking
+`a < b`, defining `__lt__` is all a class needs for its objects to be
+sortable — no custom sorting code required. In this exercise, `Shape`
+defines `__lt__` to compare areas, and the provided `Canvas` uses `sorted()`
+to find the largest shape.
 
 ---
 
@@ -216,13 +251,15 @@ You only need these commands:
 
 ### The Drawing Recipe
 
-Both shapes follow the same four steps. Only steps 2 and 4 differ:
+Both shapes follow the same five steps. Only steps 2 and 4 differ:
 
 1. Lift the pen: `pen.penup()`
 1. Move to the **starting point** of the shape with `pen.goto(...)`
 1. Face right and put the pen down: `pen.setheading(0)` then `pen.pendown()`
 1. Set the color and draw the outline between `pen.begin_fill()` and
    `pen.end_fill()`
+1. Lift the pen again: `pen.penup()` — the shape leaves the shared pen in a
+   safe state, so nothing that moves the pen afterwards draws a stray line
 
 Always start with `x, y = self.center` to unpack the inherited center into two
 variables.
@@ -249,6 +286,7 @@ def main():
         pen.forward(100)
         pen.left(90)
     pen.end_fill()
+    pen.penup()
     turtle.done()
 
 
@@ -276,28 +314,51 @@ and a position.
 - Store `color` as `self._color` (protected)
 - Store `center` as `self._center` (protected), for example `(-180, 0)`
 
-#### `@property color` and `@color.setter`
+#### `@property color`
 
-- Getter: return `self._color`
-- Setter: update `self._color` to `value`
+Return `self._color`. There is no setter, so the color is read-only. The
+canvas has no way to erase and redraw a single shape, so changing a shape's
+color after it is drawn would leave the window showing the old color. 
 
 #### `@property center`
 
-Return `self._center`. There is no setter, so the center is read-only.
+Return `self._center`. There is no setter, so the center is read-only, for
+the same reason as `color` — moving a shape would also require a redraw.
 
-#### `def area(self) -> float`
+#### `@property area -> float`
 
-Raise `NotImplementedError("Subclasses must implement area()")`.
+Raise `NotImplementedError("Subclasses must implement area")`.
 
-#### `def perimeter(self) -> float`
+`area` is a property because it is a **computed value** that callers read
+like an attribute — `shape.area`, no parentheses — even though each subclass
+calculates it on the fly.
 
-Raise `NotImplementedError("Subclasses must implement perimeter()")`.
+#### `@property perimeter -> float`
+
+Raise `NotImplementedError("Subclasses must implement perimeter")`.
+
+A property, for the same reason as `area`.
 
 #### `def draw(self, pen)`
 
 Raise `NotImplementedError("Subclasses must implement draw()")`.
 
 The `pen` is a `turtle.Turtle` object that the provided `Canvas` passes in.
+`draw` stays a regular method: it is an **action** with a side effect
+(drawing on the screen), not a value you read.
+
+#### `def __lt__(self, other) -> bool`
+
+Return `self.area < other.area`.
+
+Python calls this dunder method whenever it evaluates `shape_a < shape_b`,
+and `sorted()` orders a list by making exactly those comparisons. The
+provided `Canvas.largest_shape()` calls `sorted()` on its shapes, so it
+only works once you implement `__lt__`.
+
+Notice that `__lt__` lives on the base class but reads `area`, which each
+subclass overrides. Comparing a `Circle` to a `Rectangle` runs each shape's
+own `area` property — polymorphism again.
 
 ---
 
@@ -320,21 +381,24 @@ super().__init__(color, center)   # MUST call parent constructor first
 
 Return `self._radius`.
 
-#### `def area(self) -> float`
+#### `@property area -> float`
 
 Area of a circle: **π × r²**
 
 ```python
-import math
-return math.pi * self._radius ** 2
+@property
+def area(self) -> float:
+    return math.pi * self._radius ** 2
 ```
 
-#### `def perimeter(self) -> float`
+#### `@property perimeter -> float`
 
 Circumference: **2 × π × r**
 
 ```python
-return 2 * math.pi * self._radius
+@property
+def perimeter(self) -> float:
+    return 2 * math.pi * self._radius
 ```
 
 #### `def draw(self, pen)`
@@ -367,6 +431,7 @@ def draw(self, pen):
     pen.begin_fill()
     pen.circle(self._radius)
     pen.end_fill()
+    pen.penup()                       # 5. leave the pen lifted when done
 ```
 
 ---
@@ -386,11 +451,11 @@ super().__init__(color, center)
 
 Return `self._width` and `self._height` respectively.
 
-#### `def area(self) -> float`
+#### `@property area -> float`
 
 Area of a rectangle: **width × height**
 
-#### `def perimeter(self) -> float`
+#### `@property perimeter -> float`
 
 Perimeter: **2 × (width + height)**
 
@@ -434,6 +499,7 @@ def draw(self, pen):
         pen.forward(____)         # right or left side
         pen.left(90)
     pen.end_fill()
+    pen.penup()
 ```
 
 Check your work with `pytest test_shapes.py -k draw -v`.
@@ -450,13 +516,18 @@ You do not write this class, but read it to see how it uses your shapes.
 | `name` | Window title |
 | `add_shape(shape)` | Adds any `Shape` subclass |
 | `shape_count` | Number of shapes on the canvas |
-| `total_area` | Sum of `area()` for every shape |
-| `largest_shape()` | Shape with the greatest `area()`, or `None` |
+| `total_area` | Sum of `area` for every shape |
+| `largest_shape()` | Shape with the greatest `area`, or `None` — uses `sorted()` |
 | `draw()` | Opens a window and calls `shape.draw(pen)` on every shape |
 
 `Canvas.draw()` never checks whether a shape is a `Circle` or a `Rectangle`.
 It calls `shape.draw(pen)` and Python runs the correct overridden method.
 That is polymorphism.
+
+`Canvas.largest_shape()` does not search through the shapes with its own
+comparison loop. It calls `sorted(self._shapes)` and takes the last shape.
+`sorted()` orders the shapes by calling your `Shape.__lt__`, so the canvas
+needs no custom sorting algorithm at all.
 
 ---
 
@@ -482,7 +553,7 @@ pytest test_shapes.py --cov=shapes --cov-report=term-missing
 
 Work through the classes in this order — the tests build on each other:
 
-1. **`Shape`** — base class (color, center, properties, stubs)
+1. **`Shape`** — base class (color, center, properties, stubs, `__lt__`)
 1. **`Circle`** — simplest subclass (one extra attribute: radius)
 1. **`Rectangle`** — two extra attributes (width, height)
 
@@ -504,11 +575,133 @@ After completing the exercise, discuss with your partner:
 1. How can `Canvas.draw()` and `Canvas.total_area` work with both circles and
    rectangles without checking their type?
 
+1. `Canvas.largest_shape()` calls `sorted(self._shapes)`. Which method on
+   your `Shape` class makes this possible? What error do you get if you
+   comment that method out and run the tests?
+
+1. Why define `__lt__` once on `Shape` instead of separately on `Circle` and
+   `Rectangle`?
+
 1. Why are `WIDTH` and `HEIGHT` class attributes on `Canvas` while `name` is
    an instance attribute?
 
 1. What is the difference between `isinstance(c, Circle)` and
    `isinstance(c, Shape)` for a `Circle` object `c`?
+
+---
+
+## Refactoring: Make Shape an Abstract Base Class
+
+Once everything passes, try this refactoring to improve the design.
+
+### The Problem with the Current Design
+
+Right now nothing stops you from creating a plain `Shape`:
+
+```python
+mystery = Shape("red", (0, 0))   # Allowed, but makes no sense
+canvas.add_shape(mystery)
+canvas.total_area                # Crashes NOW with NotImplementedError
+```
+
+The mistake happens on the first line, but the error only appears later when
+`area` is finally read — possibly in a completely different part of the
+program. This is like a backup script with a bad config value that only fails
+when the nightly job runs at 3 a.m. Good designs **fail fast**: they report
+the mistake where it is made.
+
+An **abstract base class** (ABC) does exactly that. Marking a class abstract
+tells Python the class only defines an interface, so Python refuses to create
+an instance of it at all.
+
+### Step 1: Inherit from ABC
+
+Import the tools and change the class declaration in `shapes.py`:
+
+```python
+from abc import ABC, abstractmethod
+
+
+class Shape(ABC):   # Shape now inherits from ABC
+```
+
+### Step 2: Mark the Interface Methods as Abstract
+
+Replace each `raise NotImplementedError(...)` stub with the
+`@abstractmethod` decorator. The body becomes just the docstring:
+
+```python
+@property
+@abstractmethod
+def area(self) -> float:
+    """Get the area of the shape."""
+```
+
+Decorator order matters: `@abstractmethod` must be the **innermost**
+decorator (the one closest to the `def`). Do the same for `perimeter`, and
+mark `draw(pen)` with `@abstractmethod` alone (it is not a property). Do
+**not** decorate `__init__`, the `color` and `center` properties, or
+`__lt__` — those are shared behavior that subclasses inherit as-is, not
+interface stubs.
+
+`Circle` and `Rectangle` need no changes: they already override all three
+abstract methods, so Python lets them be instantiated as before.
+
+### Step 3: Run the Tests — They All Still Pass
+
+```powershell
+pytest test_shapes.py -v
+```
+
+No test fails, and that is the point. The suite tests **behavior** — what
+circles and rectangles do — not the mechanism `Shape` uses to declare its
+interface. The one test that touches a bare `Shape`
+(`test_base_shape_cannot_be_used_directly`) accepts either error on purpose:
+
+```python
+with pytest.raises((TypeError, NotImplementedError)):
+    Shape("red", (0, 0)).area
+```
+
+`NotImplementedError` stubs and `@abstractmethod` are two implementations of
+the same design intent ("you cannot use a bare Shape"), so a good test
+accepts both. A refactoring changes the design without changing the
+behavior — and a test suite that still passes is how you prove it.
+
+### Step 4: See the Fail-Fast Error Yourself
+
+Open a Python REPL and try to create a bare `Shape`:
+
+```powershell
+python
+```
+
+```python
+>>> from shapes import Shape
+>>> Shape("red", (0, 0))
+Traceback (most recent call last):
+  ...
+TypeError: Can't instantiate abstract class Shape without an implementation
+for abstract methods 'area', 'draw', 'perimeter'
+```
+
+Notice the error names every missing method and happens at **creation**, not
+later at the first read of `area`. Run `python shapes.py` as well — the
+program behaves exactly as before.
+
+### Reflection
+
+1. Which failure is easier to debug: `NotImplementedError` when `area` is
+   eventually read, or `TypeError` the moment someone writes
+   `Shape(...)`? Why?
+
+1. The `@abstractmethod` stubs still have type annotations and docstrings.
+   Who are those for, if the methods never run?
+
+1. The test suite passed before and after the refactoring without a single
+   change. What does that tell you about which tests are worth writing?
+   What kind of test would have broken, and why would that have been a
+   sign of a weaker test?
 
 ---
 
