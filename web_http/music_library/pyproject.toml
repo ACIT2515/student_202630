@@ -1,0 +1,9 @@
+[project]
+name = "music-library"
+version = "0.1.0"
+description = "Music Library API practice server and HTTP client exercises"
+requires-python = ">=3.13"
+dependencies = [
+    "flask>=3.1.0",
+    "httpx>=0.28.0",
+]
