@@ -163,3 +163,20 @@ Cancelled
 ### Additional Reading
 
 1. [Inheritance and Composition: A Python OOP Guide](https://realpython.com/inheritance-composition-python/)
+
+## Week 10
+
+### Web API's
+
+#### Notes
+
+1. [HTTP Review](./web_http/notes/http_review.md)
+1. [HTTPX HTTP Library](./web_http/notes/httpx_python_http_clients.md)
+
+#### Exercises
+
+1. [Bruno REST API Exercise](./web_http/exercises/bruno_rest_api_exercise.md)
+1. [Simple HTTP Client Exercise: Music Library](./web_http/exercises/simple_http_client_exercise.md)
+1. [Object Oriented Music Library Client](./web_http/exercises/oo_http_client_exercise.md)
+
+Required [Music Library Server](./web_http/music_library/)
