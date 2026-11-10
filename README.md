@@ -180,3 +180,14 @@ Cancelled
 1. [Object Oriented Music Library Client](./web_http/exercises/oo_http_client_exercise.md)
 
 Required [Music Library Server](./web_http/music_library/)
+
+### pytest Fixtures 
+
+#### Notes
+
+1. [pytest Fixtures](./testing_pytest/notes/pytest_fixtures.md)
+1. [pytest Monkey Patch](./testing_pytest/notes/monkeypatch.md)
+
+#### Exercise
+
+1. [Testing Object Oriented Music Library Client with Monkey Patch](./testing_pytest/exercises/monkey_patch/monkey_patch.md)
