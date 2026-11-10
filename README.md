@@ -186,6 +186,7 @@ Required [Music Library Server](./web_http/music_library/)
 #### Notes
 
 1. [pytest Fixtures](./testing_pytest/notes/pytest_fixtures.md)
+1. [Lambda Functions](./lambdas/notes/lambda.md)
 1. [pytest Monkey Patch](./testing_pytest/notes/monkeypatch.md)
 
 #### Exercise
