@@ -192,3 +192,8 @@ Required [Music Library Server](./web_http/music_library/)
 #### Exercise
 
 1. [Testing Object Oriented Music Library Client with Monkey Patch](./testing_pytest/exercises/monkey_patch/monkey_patch.md)
+
+## Week 11
+
+1. [Project Part01: System Auditor CLI](./projects/system_auditor/system_auditor_p01_student.md)
+      1. [Project Starter Files](/projects/system_auditor/student_p01/)

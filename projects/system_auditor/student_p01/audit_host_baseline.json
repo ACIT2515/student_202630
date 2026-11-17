@@ -1,0 +1,21 @@
+{
+    "audit_id": "host-baseline",
+    "audit_description": "Check minimum disk space, memory, and CPU requirements.",
+    "checks": [
+        {
+            "type": "disk",
+            "requirement": 20,
+            "description": "Ensure at least 20 GiB of free space on the system drive."
+        },
+        {
+            "type": "memory",
+            "requirement": 8,
+            "description": "Ensure at least 8 GiB of installed memory."
+        },
+        {
+            "type": "cpu",
+            "requirement": 4,
+            "description": "Ensure at least 4 logical CPUs are available."
+        }
+    ]
+}
