@@ -1,8 +1,8 @@
 """Test the command-line interface without inspecting the real computer.
 
-The checks_file fixture in conftest.py writes a three-check policy to a JSON
-file in pytest's temporary directory, and fake_system supplies a host with
-40 GiB free disk, 16 GiB memory, and 8 logical CPUs.
+The checks_file fixture writes a three-check policy to a JSON file in pytest's
+temporary directory, and fake_system supplies a host with 40 GiB free disk,
+16 GiB memory, and 8 logical CPUs.
 
 main() reads its arguments from sys.argv, so each test uses monkeypatch to
 replace sys.argv with the command line it wants to simulate.
@@ -11,8 +11,37 @@ replace sys.argv with the command line it wants to simulate.
 import json
 import sys
 
-import system_auditor_cli
 import pytest
+import system_auditor_cli
+
+
+@pytest.fixture
+def checks_file(tmp_path):
+    """Write an audit with disk, memory, and CPU checks to a JSON file."""
+    path = tmp_path / "checks.json"
+    audit = {
+        "audit_id": "test-audit",
+        "audit_description": "Check the example host against a minimum policy.",
+        "checks": [
+            {
+                "type": "disk",
+                "requirement": 20,
+                "description": "At least 20 GiB of free disk space.",
+            },
+            {
+                "type": "memory",
+                "requirement": 8,
+                "description": "At least 8 GiB of installed memory.",
+            },
+            {
+                "type": "cpu",
+                "requirement": 4,
+                "description": "At least 4 logical CPUs.",
+            },
+        ],
+    }
+    path.write_text(json.dumps(audit), encoding="utf-8")
+    return path
 
 
 def test_main_reads_checks_and_writes_json_report(
@@ -74,61 +103,17 @@ def test_main_handles_invalid_arguments(capsys, monkeypatch):
     assert "OVERALL:" not in output
 
 
-def test_main_requires_audit_id(checks_file, monkeypatch):
-    """An audit without an ID cannot be run."""
-    audit = json.loads(checks_file.read_text(encoding="utf-8"))
-    del audit["audit_id"]
-    checks_file.write_text(json.dumps(audit), encoding="utf-8")
-    monkeypatch.setattr(sys, "argv", ["system_auditor_cli.py", str(checks_file)])
+def test_main_rejects_invalid_definition(checks_file, capsys, monkeypatch):
+    """An invalid audit definition raises an error before any report prints.
 
-    with pytest.raises(KeyError, match="audit_id"):
-        system_auditor_cli.main()
-
-
-def test_main_rejects_invalid_audit_id(checks_file, monkeypatch):
-    """An audit ID must be a non-empty string."""
-    audit = json.loads(checks_file.read_text(encoding="utf-8"))
-    audit["audit_id"] = None
-    checks_file.write_text(json.dumps(audit), encoding="utf-8")
-    monkeypatch.setattr(sys, "argv", ["system_auditor_cli.py", str(checks_file)])
-
-    with pytest.raises(ValueError, match="audit_id"):
-        system_auditor_cli.main()
-
-
-def test_main_rejects_blank_audit_description(checks_file, monkeypatch):
-    """An audit must have a non-empty description."""
-    audit = json.loads(checks_file.read_text(encoding="utf-8"))
-    audit["audit_description"] = "   "
-    checks_file.write_text(json.dumps(audit), encoding="utf-8")
-    monkeypatch.setattr(sys, "argv", ["system_auditor_cli.py", str(checks_file)])
-
-    with pytest.raises(ValueError, match="audit_description"):
-        system_auditor_cli.main()
-
-
-def test_main_rejects_a_list_without_audit_metadata(
-    fake_system, checks_file, monkeypatch
-):
-    """A bare checks list is not an audit definition."""
-    audit = json.loads(checks_file.read_text(encoding="utf-8"))
-    checks_file.write_text(json.dumps(audit["checks"]), encoding="utf-8")
-    monkeypatch.setattr(sys, "argv", ["system_auditor_cli.py", str(checks_file)])
-
-    with pytest.raises(ValueError, match="audit object"):
-        system_auditor_cli.main()
-
-
-def test_main_requires_a_checks_list(checks_file, monkeypatch):
-    """An invalid checks value must not produce a passing report."""
+    The individual validation rules are tested against Audit in
+    test_audit.py; this test confirms that main() uses that validation.
+    """
     audit = json.loads(checks_file.read_text(encoding="utf-8"))
     audit["checks"] = ""
     checks_file.write_text(json.dumps(audit), encoding="utf-8")
     monkeypatch.setattr(sys, "argv", ["system_auditor_cli.py", str(checks_file)])
 
-    with pytest.raises(ValueError, match="checks must be a list"):
+    with pytest.raises(Exception):
         system_auditor_cli.main()
-
-
-if __name__ == "__main__":
-    raise SystemExit(pytest.main([__file__]))
+    assert "OVERALL:" not in capsys.readouterr().out

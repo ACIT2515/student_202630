@@ -3,17 +3,16 @@
 from abc import ABC, abstractmethod
 
 import psutil
+from check_result import CheckResult
 
-# Add create_check(), CheckResult, SystemCheck, DiskCheck, and MemoryCheck.
-# SystemCheck must be defined above CPUCheck because CPUCheck inherits from it.
+# Add SystemCheck, DiskCheck, MemoryCheck, and create_check.
+# Define SystemCheck before CPUCheck because CPUCheck inherits from it.
 
 
 class CPUCheck(SystemCheck):
     """Check the number of logical CPUs."""
 
-    def __init__(self, minimum_cpus: int, description: str) -> None:
-        """Set the minimum logical CPU count and this check's description."""
-        super().__init__("CPUs", minimum_cpus, description)
+    name = "CPUs"
 
     def measure(self) -> int:
         """Return the logical CPU count."""
