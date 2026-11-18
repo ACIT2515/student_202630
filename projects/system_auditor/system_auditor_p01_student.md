@@ -1,9 +1,5 @@
 # Project: System Auditor (Part 1)
 
-> This handout describes the updated Part 1 design. The current `student_p01`
-> starter files and tests still use an earlier design and must be updated
-> before they can be used with these instructions.
-
 ## Goal
 
 IT administrators need a quick way to check whether a computer meets minimum
@@ -19,35 +15,36 @@ pass, and write the missing test for `CPUCheck`.
 
 This project uses techniques from work you have already completed:
 
-| Concepts                                     | Prior work                                                                                                                                                                                                        |
-| -------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `psutil`, `uv`, and multiple modules         | [system_report](../../uv_dependencies_virtual_environments/exercises/system_report/system_report_lab.md), [sysinfo_reporter](../../labs/wk01/sysinfo_reporter.md) |
-| `sys.argv` and command-line usage            | [command-line word count](../../cmdline_arguments/exercises/letter_frequency_cmd/cmd_line_arguments_letter_frequency.md)                                                                                 |
-| Reading and writing JSON files               | [task flattener](../../recursion/labs/task_flattener/student/recusrion_task_flattener_lab.md)                                                                                                            |
-| Classes and objects containing other objects | [Books and Library](../../object_oriented/exercises/books_library/student/intro_oo_library.md), [Blackjack](../../object_oriented/exercises/blackjack/student/README.md)                        |
-| Inheritance and polymorphism                 | [Shapes and Inheritance](../../object_oriented/exercises/shapes_inheritance/student/README.md)                                                                                                           |
-| Pytest fixtures and `monkeypatch`            | [pytest Monkey Patch](../../testing_pytest/exercises/monkey_patch/monkey_patch.md)                                                                                                                       |
+| Concepts                                     | Prior work                                                                                                                                                               |
+| -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `psutil`, `uv`, and multiple modules         | [system_report](../../uv_dependencies_virtual_environments/exercises/system_report/system_report_lab.md), [sysinfo_reporter](../../labs/wk01/sysinfo_reporter.md)        |
+| `sys.argv` and command-line usage            | [command-line word count](../../cmdline_arguments/exercises/letter_frequency_cmd/cmd_line_arguments_letter_frequency.md)                                                 |
+| Reading and writing JSON files               | [task flattener](../../recursion/labs/task_flattener/student/recusrion_task_flattener_lab.md)                                                                            |
+| Classes and objects containing other objects | [Books and Library](../../object_oriented/exercises/books_library/student/intro_oo_library.md), [Blackjack](../../object_oriented/exercises/blackjack/student/README.md) |
+| Inheritance and polymorphism                 | [Shapes and Inheritance](../../object_oriented/exercises/shapes_inheritance/student/README.md)                                                                           |
+| Pytest fixtures and `monkeypatch`            | [pytest Monkey Patch](../../testing_pytest/exercises/monkey_patch/monkey_patch.md)                                                                                       |
 
 ## Setup
 
-The project will be set up with `uv`.
+### Copy Supplied Files
 
-Once the starter package has been updated, copy the supplied files from
-[student_p01](student_p01/) into your project folder.
+Create a project folder for this project: for example: `system_auditor` 
 
-After setup, `pyproject.toml` and `uv.lock` should be created. The updated
-package is intended to provide the files marked "Supplied" below.
+Copy the supplied files from [student_p01](student_p01/) into your project
+folder.
+
+### File Layout
 
 | File                         | Who provides or writes it                            | Purpose                                                                   |
 | ---------------------------- | ---------------------------------------------------- | ------------------------------------------------------------------------- |
-| `.gitignore`                 | uv setup creates                                     | Determines what is excluded from version control.                         |
+| `.gitignore`                 | Supplied                                             | Determines what is excluded from version control.                         |
 | `pyproject.toml`             | uv setup creates                                     | Project settings and dependencies.                                        |
 | `uv.lock`                    | uv setup creates                                     | Records the exact dependency versions.                                    |
 | `.vscode/launch.json`        | Supplied                                             | Starts the debugger with input and optional output filenames.             |
 | `conftest.py`                | Supplied                                             | Provides fixtures that fake system measurements for tests.                |
 | `test_check_result.py`       | Supplied                                             | Tests the presentation of individual check results.                       |
 | `test_checks.py`             | Supplied; you add a test for `CPUCheck`              | Tests the check classes.                                                  |
-| `test_audit_report.py`       | Supplied                                             | Tests the overall report and its presentation.                           |
+| `test_audit_report.py`       | Supplied                                             | Tests the overall report and its presentation.                            |
 | `test_audit.py`              | Supplied                                             | Tests audit construction and execution.                                   |
 | `test_system_auditor_cli.py` | Supplied                                             | Tests command-line behavior and JSON output.                              |
 | `audit_host_baseline.json`   | Supplied                                             | Defines the host-baseline audit and its checks.                           |
@@ -56,6 +53,29 @@ package is intended to provide the files marked "Supplied" below.
 | `audit_report.py`            | You create                                           | Stores results and presents the overall audit outcome.                    |
 | `audit.py`                   | You create                                           | Builds and runs the checks from an audit definition.                      |
 | `system_auditor_cli.py`      | You create                                           | Reads command-line input, runs the audit, and prints or saves the report. |
+
+### Setup Project with `uv`
+
+The project will be set up with `uv`.
+
+From within the project directory:
+
+```bash
+uv init
+uv add -dev pytest
+uv add psutil
+uv sync
+```
+
+After setup, `pyproject.toml` and `uv.lock` should be created.
+
+### Select Python Environment
+
+[VSCode: Select Python Environment](https://code.visualstudio.com/docs/python/environments#_select-an-environment)
+
+### Configure `pytest`
+
+[VSCode: Testing](https://code.visualstudio.com/docs/python/testing)
 
 ## Program Requirements
 
@@ -90,9 +110,9 @@ check has a `type`, a `requirement`, and a `description`:
 }
 ```
 
-The audit ID and description must be non-empty strings, not just whitespace.
-The `checks` value must be a list, which may be empty. A bare list of checks is
-not an audit definition.
+The audit ID and description must be non-empty strings, not just whitespace. The
+`checks` value must be a list, which may be empty. A bare list of checks is not
+an audit definition.
 
 | Type     | Measurement                                               | Requirement           |
 | -------- | --------------------------------------------------------- | --------------------- |
@@ -105,8 +125,8 @@ not an audit definition.
 - On Windows, `psutil.disk_usage("/")` measures the root of the current drive,
   which may not be the Windows system drive, the root of the current drive is
   acceptable for this project.
-- Disk and memory measurements are converted from bytes to GiB using
-  `1024 ** 3` bytes per GiB.
+- Disk and memory measurements are converted from bytes to GiB using `1024 ** 3`
+  bytes per GiB.
 
 ### Command Line
 
@@ -178,8 +198,8 @@ For example, showing one check:
 ## Design
 
 Use this class diagram as your guide. It shows the required classes and how they
-relate. Keep the public class and method names shown because the tests use
-them. You may choose your own internal attribute names.
+relate. Keep the public class and method names shown because the tests use them.
+You may choose your own internal attribute names.
 
 ```mermaid
 classDiagram
@@ -238,13 +258,13 @@ command-line tests; it does not read or modify the supplied
 `audit_host_baseline.json`.
 
 To use a fixture, include its name as a test function parameter. For example,
-the disk and memory tests request `fake_system`. The command-line tests also
-use `monkeypatch` to replace `sys.argv`. The audit and report unit tests use
-fake objects to test those classes separately from their collaborators. Pytest
+the disk and memory tests request `fake_system`. The command-line tests also use
+`monkeypatch` to replace `sys.argv`. The audit and report unit tests use fake
+objects to test those classes separately from their collaborators. Pytest
 restores patched values after each test.
 
-Use the disk and memory factory tests as models for your CPU test. Do not
-change the supplied tests to make them pass; change your code instead.
+Use the disk and memory factory tests as models for your CPU test. Do not change
+the supplied tests to make them pass; change your code instead.
 
 ## Build Steps
 
@@ -254,13 +274,13 @@ Define `CheckResult(name, description, measured, requirement, passed)` to store
 one check's outcome. Expose `name`, `description`, `measured`, `requirement`,
 and `passed` as public attributes or properties.
 
-Implement `to_dict()` to return these five fields and `__str__()` to format
-the result for the console, including its values and a PASS or FAIL outcome.
-Use the labels `Description:`, `Measured:`, `Requirement:`, and `Result:`
-so the values can be identified.
+Implement `to_dict()` to return these five fields and `__str__()` to format the
+result for the console, including its values and a PASS or FAIL outcome. Use the
+labels `Description:`, `Measured:`, `Requirement:`, and `Result:` so the values
+can be identified.
 
-The shared test setup imports `checks.py`, so complete Step 2 before running
-the tests for this class.
+The shared test setup imports `checks.py`, so complete Step 2 before running the
+tests for this class.
 
 ### Step 2: Complete `checks.py`
 
@@ -275,17 +295,17 @@ This module contains the check classes and `create_check()`:
   measure their respective resources. Their display names are `Disk Space`,
   `Memory`, and `CPUs`. Each can be constructed with a requirement and a
   description, for example `CPUCheck(4, "At least 4 logical CPUs.")`. The
-  supplied `CPUCheck` is a starting point; adapt it as needed to work with
-  your `SystemCheck`.
-- `create_check(specification)` turns one parsed JSON check dictionary into
-  the matching check object. Each specification has a `type`, a `requirement`,
-  and a `description`. Creating a check must not measure the computer.
+  supplied `CPUCheck` is a starting point; adapt it as needed to work with your
+  `SystemCheck`.
+- `create_check(specification)` turns one parsed JSON check dictionary into the
+  matching check object. Each specification has a `type`, a `requirement`, and a
+  `description`. Creating a check must not measure the computer.
 
-Reject a specification with a missing required key or an unknown check type
-by raising an exception. For example, `KeyError` can indicate a missing key
-and `ValueError` can identify an unknown type. You do not need to use those
-exact exception types. One way to select the class is a `check_types`
-dictionary inside `create_check()` that maps type names to check classes.
+Reject a specification with a missing required key or an unknown check type by
+raising an exception. For example, `KeyError` can indicate a missing key and
+`ValueError` can identify an unknown type. You do not need to use those exact
+exception types. One way to select the class is a `check_types` dictionary
+inside `create_check()` that maps type names to check classes.
 
 The `CPUCheck` implementation is supplied, but its factory test is not. Add a
 test named `test_cpu_check` to `test_checks.py`. It should:
@@ -298,8 +318,8 @@ test named `test_cpu_check` to `test_checks.py`. It should:
 
 To make sure the test can catch a bug, temporarily make `CPUCheck.measure()`
 return a wrong value. Run the test and confirm it fails, then restore the
-correct implementation. Run `test_checks.py` when the check classes and CPU
-test are complete. Then run the checks and result tests together:
+correct implementation. Run `test_checks.py` when the check classes and CPU test
+are complete. Then run the checks and result tests together:
 
 ```powershell
 uv run pytest test_checks.py test_check_result.py
@@ -313,25 +333,25 @@ every check passed, and false when any check failed. An empty results list
 passes because no checks failed.
 
 Implement `to_dict()` with the JSON report fields described above and
-`__str__()` with the console report. Keep results in their original order.
-Run `uv run pytest test_audit_report.py` when the class is complete.
+`__str__()` with the console report. Keep results in their original order. Run
+`uv run pytest test_audit_report.py` when the class is complete.
 
 ### Step 4: Create `audit.py`
 
-`Audit(definition)` accepts a dictionary parsed from the audit definition
-JSON. Validate that the required keys are present, that the ID and description
-are non-empty strings, and that `checks` is a list. Reject invalid definitions
-by raising an exception; a particular exception type is not required.
+`Audit(definition)` accepts a dictionary parsed from the audit definition JSON.
+Validate that the required keys are present, that the ID and description are
+non-empty strings, and that `checks` is a list. Reject invalid definitions by
+raising an exception; a particular exception type is not required.
 
-Use `create_check()` to build the check objects and store them as `checks`.
-Also expose `audit_id` and `audit_description`. Constructing an audit does not
+Use `create_check()` to build the check objects and store them as `checks`. Also
+expose `audit_id` and `audit_description`. Constructing an audit does not
 measure the computer, read files, or print.
 
 Implement `run()` to run every check in order and return an `AuditReport` with
 the results, ID, and description. A failed check must not stop later checks;
 measurement errors should not be hidden. Do not check each object's concrete
-type before calling its `run()` method. Running the same audit again takes
-fresh measurements and returns a new report.
+type before calling its `run()` method. Running the same audit again takes fresh
+measurements and returns a new report.
 
 An `Audit` describes what to check; an `AuditReport` records what happened when
 those checks ran. Run `uv run pytest test_audit.py` when `Audit` is complete.
