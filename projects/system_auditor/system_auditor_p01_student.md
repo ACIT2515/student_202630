@@ -1,9 +1,5 @@
 # Project: System Auditor (Part 1)
 
-> This handout describes the updated Part 1 design. The current `student_p01`
-> starter files and tests still use an earlier design and must be updated
-> before they can be used with these instructions.
-
 ## Goal
 
 IT administrators need a quick way to check whether a computer meets minimum
@@ -231,7 +227,7 @@ classDiagram
 
 ## Using the Supplied Tests
 
-The updated tests will not inspect the real computer. The `fake_system` fixture
+The tests will not inspect the real computer. The `fake_system` fixture
 in `conftest.py` replaces `psutil` calls with fixed values: 40 GiB of free disk
 space, 16 GiB of memory, and 8 CPUs. The `checks_file` fixture in
 `test_system_auditor_cli.py` creates a temporary JSON policy for the
@@ -385,13 +381,10 @@ Run and Debug. Choose a launch option and press F5:
 
 Filenames are relative to your project folder unless you enter a full path.
 
-## Git Tracking and Submission
+## Git Tracking for Submission
 
 1. Create a git repository for your machine and use the `uv` generated git
    ignore.
 1. Add a commit for every build step above.
 1. create an annotated Tag named `project_p01` with the description:
    `Completed ACIT2515 Project Part 01`
-1. Create a zip file of all of the listed project files and your `.git`
-   directory and upload the zip file to the project drop box in the learning
-   hub.
