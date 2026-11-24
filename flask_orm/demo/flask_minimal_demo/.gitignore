@@ -1,0 +1,37 @@
+# Python bytecode and compiled extensions
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Flask local configuration and generated files
+.env
+.env.*
+!.env.example
+!.env.sample
+!.env.template
+.envrc
+instance/
+.webassets-cache/
+
+# Tests, coverage, and static analysis
+.pytest_cache/
+.hypothesis/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+.eggs/

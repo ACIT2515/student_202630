@@ -143,7 +143,7 @@ Cancelled
 
 1. [Blackjack](./object_oriented/exercises/blackjack/student/README.md)
 
-## Week 08 Mid Term Exam 
+## Week 08 Mid Term Exam
 
 1. [Mid Term Overview](/exams/202630/mid_term/mid_term_overview.md)
 1. [Reference Sheet](/exams/202630/mid_term/ref_sheet/ref_sheet.pdf)
@@ -181,7 +181,7 @@ Cancelled
 
 Required [Music Library Server](./web_http/music_library/)
 
-### pytest Fixtures 
+### pytest Fixtures
 
 #### Notes
 
@@ -195,5 +195,26 @@ Required [Music Library Server](./web_http/music_library/)
 
 ## Week 11
 
+### Project Part 1
+
 1. [Project Part01: System Auditor CLI](./projects/system_auditor/system_auditor_p01_student.md)
-      1. [Project Starter Files](/projects/system_auditor/student_p01/)
+   1. [Project Starter Files](/projects/system_auditor/student_p01/)
+
+## Week 12
+
+### Notes
+
+1. [Just Enough Git](./git/notes/git_just_enough.md)
+1. [Python Web Interfaces: Flask](./flask_orm/notes/flask_simple_intro.md)
+1. [Testing Flask with pytest](./flask_orm/notes/flask_testing_w_pytest.md)
+
+### Demo
+
+1. [Minimal Flask Demo](./flask_orm/demo/flask_minimal_demo/)
+1. [Music Library Server](./flask_orm/demo/music_library_server/)
+
+### Project Part 2
+
+1. [Project Part02: System Auditor Web API and Client](./projects/system_auditor/system_auditor_p02_student.md)
+   1. [Project Part 02 Starter Files](./projects/system_auditor/student_p02/)
+1. [Project Marking Rubric](./projects/system_auditor/system_auditor_rubric.md)

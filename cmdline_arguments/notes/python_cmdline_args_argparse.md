@@ -207,7 +207,7 @@ operation.add_argument("-r", "--reverse", action="store_true", help="Reverse the
 If a user passes both `-u` and `-l`, `argparse` reports the conflict and
 exits before your program logic ever runs, rather than silently picking one
 or producing confusing output. See the full example in
-[argparse_demo.py](../demo/intro/argparse_demo.py).
+[argparse_demo.py](../demo/argparse_demo.py).
 
 ## Boolean Flags with `action="store_true"`
 

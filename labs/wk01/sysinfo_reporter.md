@@ -16,7 +16,7 @@ This is an introductory exercise. It focuses on:
 - Using three standard library modules to inspect the local machine:
   `platform`, `socket`, and `getpass`.
 - Organizing a script using the
-  [Recommended Script Structure](../../subjects/modules_packages/notes/modules_packages_imports.md#recommended-script-structure).
+  [Recommended Script Structure](../../modules_packages/notes/modules_packages_imports.md#recommended-script-structure).
 
 ## Learning Objectives
 
@@ -61,7 +61,7 @@ Create a solution directory `sysinfo_reporter`.
 Create a file called `sysinfo_reporter.py`.
 
 Your file must follow the
-[Recommended Script Structure](../../subjects/modules_packages/notes/modules_packages_imports.md#recommended-script-structure):
+[Recommended Script Structure](../../modules_packages/notes/modules_packages_imports.md#recommended-script-structure):
 
 - Design one or more functions to retrieve every piece of
   information listed in [Design Requirements](#design-requirements) must be
@@ -80,7 +80,7 @@ Your file must follow the
   `getpass`) everywhere you call its functions.
 
 Document every function with a
-[Google-style docstring](../../subjects/docstrings_type_annotations/notes/docstrings_type_annotations.md)
+[Google-style docstring](../../docstrings_type_annotations/notes/docstrings_type_annotations.md)
 that includes `Args:` (if any), `Returns:`, and an `Examples:` section. 
 
 ## Design Requirements
@@ -239,5 +239,5 @@ module does not print anything.
 1. [`platform` - Access to underlying platform's identifying data](https://docs.python.org/3/library/platform.html)
 2. [`socket` - Low-level networking interface](https://docs.python.org/3/library/socket.html)
 3. [`getpass` - Portable password input](https://docs.python.org/3/library/getpass.html)
-4. [Recommended Script Structure](../../subjects/modules_packages/notes/modules_packages_imports.md#recommended-script-structure)
+4. [Recommended Script Structure](../../modules_packages/notes/modules_packages_imports.md#recommended-script-structure)
 5. [Google Python Style Guide: Comments and Docstrings](https://google.github.io/styleguide/pyguide.html#38-comments-and-docstrings)

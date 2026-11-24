@@ -17,7 +17,7 @@ You will be provided with a reference sheet.
   updates.
 - Choose and order conditions so the code handles the specified cases.
 
-References: [Variables, control flow, and functions](../../../subjects/python_review/notes/variables_control_flow_functions.md)
+References: [Variables, control flow, and functions](../../../python_review/notes/variables_control_flow_functions.md)
 
 ### Program and Project Structure
 
@@ -26,7 +26,7 @@ References: [Variables, control flow, and functions](../../../subjects/python_re
 - Organize a solution so processing logic is separate from file access,
   command-line interaction, and printing.
 
-References: [Modules, packages, and imports](../../../subjects/modules_packages/notes/modules_packages_imports.md)
+References: [Modules, packages, and imports](../../../modules_packages/notes/modules_packages_imports.md)
 
 ### Command-Line Arguments
 
@@ -37,7 +37,7 @@ References: [Modules, packages, and imports](../../../subjects/modules_packages/
   the program.
 - Use command-line arguments to control a program's inputs or behaviour.
 
-References: [Python program arguments and `sys.argv`](../../../subjects/cmdline_arguments/notes/python_cmdline_args_argparse.md)
+References: [Python program arguments and `sys.argv`](../../../cmdline_arguments/notes/python_cmdline_args_argparse.md)
 
 ### Functions
 
@@ -46,7 +46,7 @@ References: [Python program arguments and `sys.argv`](../../../subjects/cmdline_
 - Write or complete a function or method using its given parameters, including
   positional or keyword arguments.
 
-References: [Variables, control flow, and functions](../../../subjects/python_review/notes/variables_control_flow_functions.md)
+References: [Variables, control flow, and functions](../../../python_review/notes/variables_control_flow_functions.md)
 
 ### Higher-Order Functions and Decorators
 
@@ -57,7 +57,7 @@ References: [Variables, control flow, and functions](../../../subjects/python_re
 - Trace how `*args` and `**kwargs` collect and forward positional and keyword
   arguments.
 
-References: [Higher-order functions and decorators](../../../subjects/decorators_higher_order_function/notes/higher_order_functions_decorators.md); [Argument unpacking](../../../subjects/argument_un_packing/notes/argument_unpacking_args_kwargs.md)
+References: [Higher-order functions and decorators](../../../decorators_higher_order_function/notes/higher_order_functions_decorators.md); [Argument unpacking](../../../argument_un_packing/notes/argument_unpacking_args_kwargs.md)
 
 #### Note
 
@@ -78,7 +78,7 @@ trace its behaviour, not write a complete program using these techniques.
   value.
 - Handle empty collections and other boundary cases.
 
-References: [Collections and iteration](../../../subjects/python_review/notes/collections_iterations.md)
+References: [Collections and iteration](../../../python_review/notes/collections_iterations.md)
 
 ### Files, Structured Data, and Exceptions
 
@@ -89,7 +89,7 @@ References: [Collections and iteration](../../../subjects/python_review/notes/co
   result.
 - Identify and handle common file I/O errors in a supplied scenario.
 
-References: [Reading and writing files](../../../subjects/file_io/notes/file_io.md); [JSON and CSV files](../../../subjects/file_io/notes/json_csv_reading_writing.md); [Collections and iteration](../../../subjects/python_review/notes/collections_iterations.md); [Exceptions](../../../subjects/exceptions/notes/exceptions.md)
+References: [Reading and writing files](../../../file_io/notes/file_io.md); [JSON and CSV files](../../../file_io/notes/json_csv_reading_writing.md); [Collections and iteration](../../../python_review/notes/collections_iterations.md); [Exceptions](../../../exceptions/notes/exceptions.md)
 
 ### Classes, Objects, and Object-Oriented Design
 
@@ -108,7 +108,7 @@ References: [Reading and writing files](../../../subjects/file_io/notes/file_io.
 - Identify an appropriate general class and specialized class, and use
   inheritance to share behaviour where appropriate.
 
-References: [Object-oriented programming](../../../subjects/object_oriented/notes/oop_python_intro.md); [Inheritance and abstract base classes](../../../subjects/object_oriented/notes/oo_inheritence_abc.md)
+References: [Object-oriented programming](../../../object_oriented/notes/oop_python_intro.md); [Inheritance and abstract base classes](../../../object_oriented/notes/oo_inheritence_abc.md)
 
 ### Recursion
 
@@ -116,7 +116,7 @@ References: [Object-oriented programming](../../../subjects/object_oriented/note
   termination.
 - Determine how return values move back through the recursive calls.
 
-References: [Recursion and call stacks](../../../subjects/recursion/notes/recursion_call_stacks.md)
+References: [Recursion and call stacks](../../../recursion/notes/recursion_call_stacks.md)
 
 #### Note
 
@@ -132,7 +132,7 @@ its behaviour, not write a complete recursive program.
 - Use test results or supplied code to identify behaviour that is incorrect or
   not yet tested.
 
-References: [Pytest](../../../subjects/testing_pytest/notes/pytest.md)
+References: [Pytest](../../../testing_pytest/notes/pytest.md)
 
 ### Project Management with `uv`
 
@@ -141,7 +141,7 @@ References: [Pytest](../../../subjects/testing_pytest/notes/pytest.md)
   other projects.
 - Compare the benefits and practical costs of using separate environments.
 
-References: [Virtual environments and dependencies](../../../subjects/uv_dependencies_virtual_environments/notes/virtual_environments_dependencies.md)
+References: [Virtual environments and dependencies](../../../uv_dependencies_virtual_environments/notes/virtual_environments_dependencies.md)
 
 ## Question Types
 

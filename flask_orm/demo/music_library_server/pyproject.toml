@@ -1,0 +1,18 @@
+[project]
+name = "music-library-server"
+version = "0.1.0"
+description = "Music Library API practice server and HTTP client exercises"
+requires-python = ">=3.13"
+dependencies = ["flask>=3.1.0", "httpx>=0.28.0"]
+
+[dependency-groups]
+dev = ["pytest>=9.2.0", "pytest-cov>=7.1.0"]
+
+[tool.pytest.ini_options]
+
+# Search this folder by default when pytest is run from the project root.
+testpaths = ["tests"]
+
+# Add pytest's root directory to Python's import path during test runs.
+# this allows the test files to import the project source modules
+pythonpath = ["."]

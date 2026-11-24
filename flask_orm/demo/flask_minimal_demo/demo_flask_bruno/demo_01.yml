@@ -1,0 +1,22 @@
+info:
+  name: demo_01
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: http://127.0.0.1:5000/api/echo
+  body:
+    type: json
+    data: |-
+      {
+        "host": "localhost",
+        "status": "up"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

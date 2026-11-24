@@ -20,7 +20,7 @@ an error).
 
 ## Base Cases and Recursive Cases: a Worked Example
 
-[01_recursion_demo.py](../demo/intro/01_recursion_demo.py) counts down from a
+[recursion_demo.py](../demo/recursion_demo.py) counts down from a
 number to zero:
 
 ```python
@@ -71,7 +71,7 @@ At the deepest point, four frames existed on the stack at once (for
 defined. This is true of every recursive call: the stack briefly holds one
 frame per level of recursion still in progress.
 
-[02_nested_list_sum_demo.py](../demo/intro/02_nested_list_sum_demo.py) shows
+[nested_list_sum_demo.py](../demo/nested_list_sum_demo.py) shows
 frame execution combining results, not just printing them:
 
 ```python
@@ -141,7 +141,7 @@ that more directly and without the overhead of extra function calls.
 | Uses one stack frame per call; deep recursion can raise `RecursionError` | Uses a fixed amount of memory regardless of how many iterations run |
 | Function-call overhead on every step                    | No extra function-call overhead for repetition             |
 | State is implicit, held across many paused stack frames  | State is explicit, held in local variables you can inspect directly |
-| Naturally fits unknown or variable depth                 | Requires an explicit stack or queue to fit unknown depth (see `sum_nested_iterative` in [02_nested_list_sum_demo.py](../demo/intro/02_nested_list_sum_demo.py)) |
+| Naturally fits unknown or variable depth                 | Requires an explicit stack or queue to fit unknown depth (see `sum_nested_iterative` in [nested_list_sum_demo.py](../demo/nested_list_sum_demo.py)) |
 
 Any recursive function can be rewritten iteratively, usually by managing an
 explicit stack (as `sum_nested_iterative` does), but that often makes the
@@ -165,7 +165,7 @@ memory and performance are a concern.
 
 ## References
 
-1. [01_recursion_demo.py](../demo/intro/01_recursion_demo.py)
-2. [02_nested_list_sum_demo.py](../demo/intro/02_nested_list_sum_demo.py)
+1. [recursion_demo.py](../demo/recursion_demo.py)
+2. [nested_list_sum_demo.py](../demo/nested_list_sum_demo.py)
 3. [Python Design and History FAQ: Recursion limit](https://docs.python.org/3/faq/design.html)
 4. [`sys.setrecursionlimit`](https://docs.python.org/3/library/sys.html#sys.setrecursionlimit)

@@ -15,7 +15,7 @@ and what does each frame's `count` value hold at that moment?
 ## Question 3: Choosing Recursion vs Iteration
 
 `sum_nested_recursive` and `sum_nested_iterative` in
-[02_nested_list_sum_demo.py](../demo/intro/02_nested_list_sum_demo.py) both
+[nested_list_sum_demo.py](../demo/nested_list_sum_demo.py) both
 sum a nested list. What kind of problem structure makes the recursive
 version a natural fit, and what does the iterative version have to manage
 manually to achieve the same result?

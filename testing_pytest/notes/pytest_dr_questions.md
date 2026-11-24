@@ -1,6 +1,6 @@
 # Directed Reading Questions: Introduction to Unit Testing and pytest
 
-Complete the following short questions after reading [subjects/testing_pytest/notes/pytest.md](subjects/testing_pytest/notes/pytest.md).
+Complete the following short questions after reading [pytest.md](pytest.md).
 
 ## Question 1: Iterative Development and TDD
 

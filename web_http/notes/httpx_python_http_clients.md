@@ -878,4 +878,4 @@ If you see `requests` code online, you can usually replace `requests` with
 - [httpx — Advanced Usage (Clients)](https://www.python-httpx.org/advanced/clients/)
 - [httpx — Exceptions](https://www.python-httpx.org/exceptions/)
 - [HTTP Review](http_review.md) — HTTP methods, status codes, JSON, and REST conventions
-- [Flask Intro](../../flask_orm/notes/flask_intro.md) — Building the server side
+- [Flask Intro](../../flask_orm/notes/flask_simple_intro.md) — Building the server side
