@@ -515,7 +515,7 @@ after changing server code.
 
 ---
 
-## Summary and Directed Reading Questions
+## Summary 
 
 A Flask application is built by a factory and run by a server. While the server
 runs, Flask matches each request to a view by URL path and HTTP method, and
